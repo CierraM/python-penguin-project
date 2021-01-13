@@ -1,0 +1,18 @@
+IDEAS FOR OUR PROJECT:
+
+Story:
+You are a penguin. You wander around a world to gather an army of more penguins to help you defeat the evil polar bear boss. Which will help penguins get back their flying? When you have gathered enough penguins, you can pick up a sword and go fight the boss. Your army will throw snowballs. 
+
+Gameplay:
+Use arrow keys to move
+
+Style:
+Cute, pixelated
+
+Goals to have completed by each version:
+
+Alpha:
+
+Beta:
+
+Stable:
