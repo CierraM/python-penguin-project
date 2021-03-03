@@ -36,4 +36,8 @@ enhanced stats
 enhance stats by finding extra stuff in the world (base attack is lower)
 polar bear has enhanced attack based on health
 
+sounds and music
 pretty graphics
+
+BONUS:
+OP secret weapon easter egg?
