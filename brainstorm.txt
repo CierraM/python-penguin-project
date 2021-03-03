@@ -10,9 +10,30 @@ Style:
 Cute, pixelated
 
 Goals to have completed by each version:
+MUST HAVE FEATURES (1):
+penguin must move around screen
+penguin must be able to collect other penguins
+Other penguins will follow lead penguin
 
-Alpha:
+ADD NEXT (2):
+Boss fight:
+shoot polar bear with snowballs
+Or attack with secret weapon?
+penguin friends auto-fire snowballs
+polar bear attacks with bigger snowball
+polar bear has a lot of health
+attack power is randomly generated in a small range
 
-Beta:
+multiple screens to explore in the world
 
-Stable:
+If you lose, go back to the world
+If you win, go to win screen
+intro scene to explain Story
+
+ADD IF THERE IS TIME (3):
+health bars
+enhanced stats
+enhance stats by finding extra stuff in the world (base attack is lower)
+polar bear has enhanced attack based on health
+
+pretty graphics
