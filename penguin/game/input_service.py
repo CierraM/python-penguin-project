@@ -36,6 +36,12 @@ class InputService:
         if self._symbol == arcade.key.D or self._symbol == arcade.key.RIGHT:
             direction = Point(10, 0)
 
+        if self._symbol == arcade.key.w or self._symbol == arcade.key.UP:
+            direction = Point(0, 10)
+
+        if self._symbol == arcade.key.S or self._symbol == arcade.key.DOWN:
+            direction = Point(0, -10)
+
         return direction
 
 
