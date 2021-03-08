@@ -11,14 +11,13 @@ Cute, pixelated
 
 Goals to have completed by each version:
 MUST HAVE FEATURES (1):
-penguin must move around screen
+penguin must move around screen with arrows or wasd
 penguin must be able to collect other penguins
 Other penguins will follow lead penguin
 
 ADD NEXT (2):
 Boss fight:
 shoot polar bear with snowballs
-Or attack with secret weapon?
 penguin friends auto-fire snowballs
 polar bear attacks with bigger snowball
 polar bear has a lot of health
@@ -38,6 +37,17 @@ polar bear has enhanced attack based on health
 
 sounds and music
 pretty graphics
+Change music by biome
+
+Walking animation
 
 BONUS:
 OP secret weapon easter egg?
+
+
+
+Music:
+Intro:
+Main game: crystal caverns, magic sleigh ride
+Boss: ice blizzard
+credits: ice cream
