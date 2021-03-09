@@ -1,7 +1,6 @@
 
-
-MAX_X = 600
-MAX_Y = 400
-SCREEN_TITLE = "Batter"
+SCREEN_WIDTH = 600
+SCREEN_HEIGHT = 400
+SCREEN_TITLE = "The Penguins' Revenge"
 FRAME_LENGTH = 0.05
 
