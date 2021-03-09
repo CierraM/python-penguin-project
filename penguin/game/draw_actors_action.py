@@ -1,4 +1,5 @@
 from game.action import Action
+import arcade
 
 class DrawActorsAction(Action):
     """A code template for drawing actors. The responsibility of this
@@ -26,3 +27,6 @@ class DrawActorsAction(Action):
         Args:
             cast (dict): The game actors {key: tag, value: list}.
         """
+        for spritelist in cast:
+            self._output_service.draw_actors(spritelist)
+

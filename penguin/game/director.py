@@ -1,6 +1,5 @@
 from time import sleep
 from game import constants
-from game.actor import Actor
 from game.point import Point
 from game.control_actors_action import ControlActorsAction
 from game.draw_actors_action import DrawActorsAction
@@ -31,8 +30,8 @@ class Director(arcade.Window):
             cast (dict): The game actors {key: tag, value: list}.
             script (dict): The game actions {key: tag, value: list}.
         """
-        _cast = {}
-        _script = {}
+        
+        
         
         # Setup the window
         super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
@@ -42,34 +41,43 @@ class Director(arcade.Window):
 
         
     def setup(self):
+        
+        self.player_list = arcade.SpriteList() # you
+        self.follower_list = arcade.SpriteList() # penguins that could follow you
+        self.following_list = arcade.SpriteList() # penguins that are actually following you
+        
+        self.player_sprite = arcade.Sprite("penguin/game/assets/graphics/penguin.png", .25)
+        self.player_sprite.center_x = (constants.SCREEN_WIDTH / 2)
+        self.player_sprite.center_y = (constants.SCREEN_HEIGHT / 2)
+        self.player_list.append(self.player_sprite)
 
-        cast = {}
-
-        avatar = Actor("penguin/game/assets/graphics/penguin.png")
-        cast["avatar"] = [avatar]
-
-        cast["follower"] = []
+    
         for x in range(random.randint(1, 10)):      
-            follower = Actor("penguin/game/assets/graphics/followerPenguin.png")   
-            cast["follower"].append(follower)
+            follower = arcade.Sprite("penguin/game/assets/graphics/followerPenguin.png", .15)
+            follower.center_x = (random.randint(1, constants.SCREEN_WIDTH)) 
+            follower.center_y = (random.randint(1, constants.SCREEN_HEIGHT))
+            self.follower_list.append(follower)
 
+        self._cast = []
+        self._cast.append(self.player_list)
+        self._cast.append(self.follower_list)
+        self._cast.append(self.following_list)
 
         # create the script {key: tag, value: list}
-        script = {}
+        self._script = {}
 
         self.input_service = InputService()
         output_service = OutputService()
+        # output_service.draw_actors(cast["avatar"])
         control_actors_action = ControlActorsAction(self.input_service)
         move_actors_action = MoveActorsAction()
         handle_collisions_action = HandleCollisionsAction()
         draw_actors_action = DrawActorsAction(output_service)
 
-        script["input"] =  [control_actors_action]
-        script["update"] = [move_actors_action, handle_collisions_action]
-        script["output"] = [draw_actors_action]
+        self._script["input"] =  [control_actors_action]
+        self._script["update"] = [move_actors_action, handle_collisions_action]
+        self._script["output"] = [draw_actors_action]
 
-        self._cast = cast
-        self._script = script
         
 
     def start_game(self):
@@ -85,7 +93,7 @@ class Director(arcade.Window):
     def on_draw(self):
         arcade.start_render()
         self._cue_action("output")
-
+        
 
     def on_key_press(self, symbol, modifiers):
         self.input_service.set_symbols(symbol, modifiers)
