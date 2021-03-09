@@ -9,6 +9,8 @@ from game.move_actors_action import MoveActorsAction
 from game.input_service import InputService
 from game.output_service import OutputService
 import arcade
+from game import constants
+import random
 
 class Director(arcade.Window):
     """A code template for a person who directs the game. The responsibility of 
@@ -29,41 +31,28 @@ class Director(arcade.Window):
             cast (dict): The game actors {key: tag, value: list}.
             script (dict): The game actions {key: tag, value: list}.
         """
+        _cast = {}
+        _script = {}
+        
         # Setup the window
         super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
-        arcade.set_background_color(arcade.color.SPACE_CADET)
+        arcade.set_background_color(arcade.color.BUBBLES)
         self.set_update_rate(1/30)
-         # create the cast {key: tag, value: list}
+        self.setup()
+
+        
+    def setup(self):
+
         cast = {}
 
-        x = int(constants.MAX_X / 2)
-        y = int(constants.MAX_Y / 20)
-        position = Point(x, y)
-        velocity = Point(10, 0)
-        paddle = Actor()
-        paddle.set_text("===========")
-        paddle.set_position(position)
-        paddle.set_velocity(velocity)
-        cast["paddle"] = [paddle]
+        avatar = Actor("penguin/game/assets/graphics/penguin.png")
+        cast["avatar"] = [avatar]
 
-        cast["brick"] = []
-        for x in range( int(constants.MAX_X * 0.1), int(constants.MAX_X * 0.9), 10):
-            for y in range( int(constants.MAX_Y * 0.6), int(constants.MAX_Y * 0.8), 10):
-                position = Point(x, y)
-                brick = Actor()
-                brick.set_text("*")
-                brick.set_position(position)
-                cast["brick"].append(brick)
+        cast["follower"] = []
+        for x in range(random.randint(1, 10)):      
+            follower = Actor("penguin/game/assets/graphics/followerPenguin.png")   
+            cast["follower"].append(follower)
 
-        x = int(constants.MAX_X / 2)
-        y = int(constants.MAX_Y / 2)
-        position = Point(x, y)
-        velocity = Point(10, -10)
-        ball = Actor()
-        ball.set_text("@")
-        ball.set_position(position)
-        ball.set_velocity(velocity)
-        cast["ball"] = [ball]
 
         # create the script {key: tag, value: list}
         script = {}
@@ -81,7 +70,7 @@ class Director(arcade.Window):
 
         self._cast = cast
         self._script = script
-
+        
 
     def start_game(self):
         """Starts the game loop to control the sequence of play."""
@@ -108,5 +97,6 @@ class Director(arcade.Window):
         Args:
             tag (string): The given tag.
         """ 
+        
         for action in self._script[tag]:
             action.execute(self._cast)

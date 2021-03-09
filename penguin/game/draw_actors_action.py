@@ -26,6 +26,3 @@ class DrawActorsAction(Action):
         Args:
             cast (dict): The game actors {key: tag, value: list}.
         """
-        for group in cast.values():
-            for actor in group:
-                self._output_service.draw_actor(actor)
