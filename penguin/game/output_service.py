@@ -21,11 +21,9 @@ class OutputService:
         
 
     def draw_actors(self, actors):
-        """Renders the given list of actors on the screen.
+        """Renders the given spritelist to the screen.
 
         Args:
-            actors (list): The actors to render.
+            actors (spritelist): The actors to render.
         """ 
-        arcade.start_render()
-        for actor in actors:
-            actor.draw()
+        actors.draw()
