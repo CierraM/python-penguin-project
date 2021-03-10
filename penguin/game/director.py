@@ -65,7 +65,7 @@ class Director(arcade.Window):
 
         # I commented the follower and the following lists until we give them more details
         # As is, these two break the code without anything in them.
-        self._cast.append(self.follower)
+        self._cast.append(self.follower_list)
         # self._cast.append(self.following_list)
 
         # create the script {key: tag, value: list}
