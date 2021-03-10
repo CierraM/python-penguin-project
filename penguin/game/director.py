@@ -41,7 +41,7 @@ class Director(arcade.Window):
         
     def setup(self):
         self.sounds = Sounds()
-        self.sounds.play_sound("main_1")
+        self.sounds.play_sound("main_2")
 
         self.player_list = arcade.SpriteList() # you
         self.follower_list = arcade.SpriteList() # penguins that could follow you
