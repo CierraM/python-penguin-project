@@ -45,6 +45,7 @@ class Director(arcade.Window):
 
         self.player_list = arcade.SpriteList() # you
         self.follower_list = arcade.SpriteList() # penguins that could follow you
+        self.following_list = arcade.SpriteList() #penguins that are following you
 
         # Also commented this out until we finish the following_list
         # self.following_list = arcade.SpriteList() # penguins that are actually following you
@@ -61,13 +62,16 @@ class Director(arcade.Window):
             self.follower.center_y = (random.randint(1, constants.SCREEN_HEIGHT))
             self.follower_list.append(self.follower)
 
+
+
         self._cast = []
-        self._cast.append(self.player_sprite)
+        self._cast.append(self.player_list)
+        #use player list not player so you can use the list function in the arcade library
 
         # I commented the follower and the following lists until we give them more details
         # As is, these two break the code without anything in them.
         self._cast.append(self.follower_list)
-        # self._cast.append(self.following_list)
+        self._cast.append(self.following_list)
 
         # create the script {key: tag, value: list}
         self._script = {}
@@ -99,7 +103,7 @@ class Director(arcade.Window):
     def on_draw(self):
         arcade.start_render()
         self._cue_action("output")
-        
+        # If you want to draw text on the screen put it here
 
     def on_key_press(self, symbol, modifiers):
         self.input_service.key_press(symbol, modifiers)

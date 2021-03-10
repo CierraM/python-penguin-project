@@ -37,11 +37,15 @@ class ControlActorsAction(Action):
 
 
         # For now, this works for only moving the main character
-        player_sprite = cast[0]
-        player_sprite.center_x = (player_sprite.center_x + self._input_service.get_change_x())
-        player_sprite.center_y = (player_sprite.center_y + self._input_service.get_change_y())
+        player_sprite_list = cast[0]
+        player_sprite = player_sprite_list[0]
+        changex = player_sprite.center_x + self._input_service.get_change_x()
+        if changex > 0 and changex < constants.SCREEN_WIDTH: #or changex < constants.SCREEN_WIDTH:
+            player_sprite.center_x = changex
+        changey = player_sprite.center_y + self._input_service.get_change_y()
+        if changey > 0 and changey < constants.SCREEN_HEIGHT:
+            player_sprite.center_y = changey
 
-        
         
         
 
