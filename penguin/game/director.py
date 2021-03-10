@@ -1,6 +1,4 @@
-from time import sleep
 from game import constants
-from game.point import Point
 from game.control_actors_action import ControlActorsAction
 from game.draw_actors_action import DrawActorsAction
 from game.handle_collisions_action import HandleCollisionsAction
@@ -9,6 +7,7 @@ from game.input_service import InputService
 from game.output_service import OutputService
 import arcade
 from game import constants
+from game.sounds import Sounds
 import random
 
 class Director(arcade.Window):
@@ -41,7 +40,9 @@ class Director(arcade.Window):
 
         
     def setup(self):
-        
+        self.sounds = Sounds()
+        self.sounds.play_sound("main_1")
+
         self.player_list = arcade.SpriteList() # you
         self.follower_list = arcade.SpriteList() # penguins that could follow you
 
