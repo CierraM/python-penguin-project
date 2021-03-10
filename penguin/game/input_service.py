@@ -17,34 +17,62 @@ class InputService:
         """The class constructor."""
         self._symbol = ""
         self._modifiers = ""
+        self.sprite_change_x = 0
+        self.sprite_change_y = 0
         
-    def get_direction(self):
+    def key_press(self, symbol, modifiers):
         """Gets the selected direction for the given player.
 
         Returns:
             Point: The selected direction.
         """
-        direction = Point(10, 0)
+
+        self._symbol = symbol
+        self._modifiers = modifiers
 
         if self._symbol == arcade.key.ESCAPE:
             # Quit immediately
             arcade.close_window()
 
         if self._symbol == arcade.key.A or self._symbol == arcade.key.LEFT:
-            direction = Point(-10, 0)
+            self.sprite_change_x = -10
 
         if self._symbol == arcade.key.D or self._symbol == arcade.key.RIGHT:
-            direction = Point(10, 0)
+            self.sprite_change_x = 10
 
-        if self._symbol == arcade.key.w or self._symbol == arcade.key.UP:
-            direction = Point(0, 10)
+        if self._symbol == arcade.key.W or self._symbol == arcade.key.UP:
+            self.sprite_change_y = 10
 
         if self._symbol == arcade.key.S or self._symbol == arcade.key.DOWN:
-            direction = Point(0, -10)
+            self.sprite_change_y = -10
 
-        return direction
+    def key_release(self, symbol, modifiers):
 
-
-    def set_symbols(self, symbol, modifiers):
         self._symbol = symbol
         self._modifiers = modifiers
+
+        if (
+            self._symbol == arcade.key.A 
+            or self._symbol == arcade.key.LEFT 
+            or self._symbol == arcade.key.D 
+            or self._symbol == arcade.key.RIGHT
+        ):
+            self.sprite_change_x = 0
+
+        if (
+            self._symbol == arcade.key.W 
+            or self._symbol == arcade.key.UP 
+            or self._symbol == arcade.key.S 
+            or self._symbol == arcade.key.DOWN
+        ):
+            self.sprite_change_y = 0
+
+    def get_change_x(self):
+        return self.sprite_change_x
+
+    def get_change_y(self):
+        return self.sprite_change_y
+
+    # def set_symbols(self, symbol, modifiers):
+    #     self._symbol = symbol
+    #     self._modifiers = modifiers

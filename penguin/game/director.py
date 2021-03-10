@@ -44,7 +44,9 @@ class Director(arcade.Window):
         
         self.player_list = arcade.SpriteList() # you
         self.follower_list = arcade.SpriteList() # penguins that could follow you
-        self.following_list = arcade.SpriteList() # penguins that are actually following you
+
+        # Also commented this out until we finish the following_list
+        # self.following_list = arcade.SpriteList() # penguins that are actually following you
         
         self.player_sprite = arcade.Sprite("penguin/game/assets/graphics/penguin.png", .25)
         self.player_sprite.center_x = (constants.SCREEN_WIDTH / 2)
@@ -53,15 +55,18 @@ class Director(arcade.Window):
 
     
         for x in range(random.randint(1, 10)):      
-            follower = arcade.Sprite("penguin/game/assets/graphics/followerPenguin.png", .15)
-            follower.center_x = (random.randint(1, constants.SCREEN_WIDTH)) 
-            follower.center_y = (random.randint(1, constants.SCREEN_HEIGHT))
-            self.follower_list.append(follower)
+            self.follower = arcade.Sprite("penguin/game/assets/graphics/followerPenguin.png", .15)
+            self.follower.center_x = (random.randint(1, constants.SCREEN_WIDTH)) 
+            self.follower.center_y = (random.randint(1, constants.SCREEN_HEIGHT))
+            self.follower_list.append(self.follower)
 
         self._cast = []
-        self._cast.append(self.player_list)
-        self._cast.append(self.follower_list)
-        self._cast.append(self.following_list)
+        self._cast.append(self.player_sprite)
+
+        # I commented the follower and the following lists until we give them more details
+        # As is, these two break the code without anything in them.
+        self._cast.append(self.follower)
+        # self._cast.append(self.following_list)
 
         # create the script {key: tag, value: list}
         self._script = {}
@@ -96,7 +101,10 @@ class Director(arcade.Window):
         
 
     def on_key_press(self, symbol, modifiers):
-        self.input_service.set_symbols(symbol, modifiers)
+        self.input_service.key_press(symbol, modifiers)
+    
+    def on_key_release(self, symbol: int, modifiers: int):
+        self.input_service.key_release(symbol, modifiers)
 
 
     def _cue_action(self, tag):
