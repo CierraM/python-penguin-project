@@ -11,16 +11,17 @@ Cute, pixelated
 
 Goals to have completed by each version:
 MUST HAVE FEATURES (1):
-penguin must move around screen with arrows or wasd
+x penguin must move around screen with arrows or wasd
 penguin must be able to collect other penguins
 Other penguins will follow lead penguin
 
 ADD NEXT (2):
 Boss fight:
 shoot polar bear with snowballs
-penguin friends auto-fire snowballs
 polar bear attacks with bigger snowball
 polar bear has a lot of health
+
+penguin friends auto-fire snowballs
 attack power is randomly generated in a small range
 
 multiple screens to explore in the world
@@ -44,10 +45,34 @@ Walking animation
 BONUS:
 OP secret weapon easter egg?
 
-
-
 Music:
 Intro:
 Main game: crystal caverns, magic sleigh ride
 Boss: ice blizzard
 credits: ice cream
+
+Things that need sounds:
+picking up a new penguin
+picking up artifact
+attacks
+
+
+Week 2: 
+Sections:
+create new rooms and hook them up to the game (new section: 1 starting section, 2 others, 1 boss fight)
+
+Boss Battle: 
+new setup to add boss
+setup boss's behavior
+You have 3 chances to not get hit by snowball?
+Main character and boss can throw snowball
+Start polar bear off with 5 health
+
+
+Intro story:
+Most people don't know the story of the penguins' plight. A long time ago, they could fly as any other bird. They ruled the skies magestically.
+The polar bear king of the Arctic, King Silverclaw, envied the penguins freedom and joy. With his magic scepter, he cast a curse on all penguins, bringing them down from the skies. Ever since then, penguins have suffered the humiliation of having wings, but being unable to fly.
+The truth behind plight of the penguins has gone from history to fable. For centuries, King SilverClaw has continued his reign unchallenged. 
+Until one very special penguin came along. A penguin to change history. A penguin to restore penguinkind to its former glory. 
+That penguin is YOU.
+Go now. Gather up your army, and prepare to bring down the tyrant king.
