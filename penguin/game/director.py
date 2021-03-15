@@ -48,7 +48,7 @@ class Director(arcade.Window):
         self.following_list = arcade.SpriteList() #penguins that are following you
 
         # Also commented this out until we finish the following_list
-        # self.following_list = arcade.SpriteList() # penguins that are actually following you
+        #self.following_list = arcade.SpriteList() # penguins that are actually following you
         
         self.player_sprite = arcade.Sprite("penguin/game/assets/graphics/penguin.png", .25)
         self.player_sprite.center_x = (constants.SCREEN_WIDTH / 2)
