@@ -1,5 +1,6 @@
 from game import constants
 from game.action import Action
+import arcade
 import random
 
 class ControlActorsAction(Action):
@@ -33,6 +34,8 @@ class ControlActorsAction(Action):
         player_sprite_list = cast[0]
         player_sprite = player_sprite_list[0]
         penguin_follower = cast[2]
+        bullet_list = cast[3]
+        new_bullet = self._input_service.get_create_bullet()
         new_change_x = self._input_service.get_change_x()
         new_change_y = self._input_service.get_change_y()
         
@@ -54,6 +57,25 @@ class ControlActorsAction(Action):
 
             if penguin_change_y > 0 and penguin_change_y < constants.SCREEN_HEIGHT: 
                 penguin.center_y = penguin_change_y
+
+            # delta_x = player_sprite.center_x - penguin.center_x
+            # penguin.center_x = self.move_follower(delta_x,player_sprite.center_x)
+            # delta_y = player_sprite.center_y - penguin.center_y
+            # penguin.center_y = self.move_follower(delta_y,player_sprite.center_y)
+
+        #This creates a new bullet and gives it attributes
+        if new_bullet:
+
+            bullet = arcade.Sprite("penguin/game/assets/graphics/penguinSnowball.png", .18)
+
+            bullet.angle = 90
+
+            bullet.change_y = constants.BULLET_SPEED
+
+            bullet.center_x = player_sprite.center_x
+            bullet.bottom = player_sprite.top
+
+            bullet_list.append(bullet)
 
     def move_follower(self,delta,center):
         move = random.randint(0, 50)

@@ -4,6 +4,8 @@ from game.control_actors_action import ControlActorsAction
 from game.draw_actors_action import DrawActorsAction
 from game.handle_collisions_action import HandleCollisionsAction
 from game.input_service import InputService
+from game.output_service import OutputService
+from game.handle_health import SpriteWithHealth
 import arcade
 from game import constants
 from game.sounds import Sounds
@@ -49,12 +51,14 @@ class Director(arcade.Window):
 
         self.player_list = arcade.SpriteList() # you
         self.follower_list = arcade.SpriteList() # penguins that could follow you
-        self.following_list = arcade.SpriteList() #penguins that are following you
+        self.following_list = arcade.SpriteList() # penguins that are following you
+        self.player_bullet_list = arcade.SpriteList() # bullets the player shoots
+        self.enemy_bullet_list = arcade.SpriteList() # bullets the boss shoots
 
         # Also commented this out until we finish the following_list
         #self.following_list = arcade.SpriteList() # penguins that are actually following you
-        
-        self.player_sprite = arcade.Sprite("penguin/game/assets/graphics/penguin.png", .25)
+    
+        self.player_sprite = SpriteWithHealth("penguin/game/assets/graphics/penguin.png", .25, max_health = 3) # this function give the sprite a health bar
         self.player_sprite.center_x = (constants.SCREEN_WIDTH / 2)
         self.player_sprite.center_y = (constants.SCREEN_HEIGHT / 2)
         self.player_list.append(self.player_sprite)
@@ -71,11 +75,10 @@ class Director(arcade.Window):
         self._cast = []
         self._cast.append(self.player_list)
         #use player list not player so you can use the list function in the arcade library
-
-        # I commented the follower and the following lists until we give them more details
-        # As is, these two break the code without anything in them.
         self._cast.append(self.follower_list)
         self._cast.append(self.following_list)
+        self._cast.append(self.player_bullet_list)
+        self._cast.append(self.enemy_bullet_list)
 
         # Add room setup to the cast also
         self.setup_rooms()
