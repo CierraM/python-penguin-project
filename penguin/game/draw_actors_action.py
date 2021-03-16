@@ -12,13 +12,13 @@ class DrawActorsAction(Action):
         _output_service (OutputService): An instance of OutputService.
     """
 
-    def __init__(self, output_service):
+    def __init__(self):
         """The class constructor.
         
         Args:
             output_service (OutputService): An instance of OutputService.
         """
-        self._output_service = output_service
+        
 
     def execute(self, cast):
         """Executes the action using the given actors. The action in this
@@ -28,5 +28,5 @@ class DrawActorsAction(Action):
             cast (dict): The game actors {key: tag, value: list}.
         """
         for spritelist in cast:
-            self._output_service.draw_actors(spritelist)
+            spritelist.draw()
 

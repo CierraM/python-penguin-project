@@ -28,15 +28,6 @@ class ControlActorsAction(Action):
         Args:
             cast (dict): The game actors {key: tag, value: list}.
         """
-        # for spritelist in cast:
-        #     self._input_service.get_change_x(spritelist)
-        #This needs to be updated a bit so that it can be used for all of the sprites and not just
-        #The player_sprite
-        # for spritelist in cast:
-                #     spritelist.center_x = (spritelist.center_x + self._input_service.get_change_x())
-                #     spritelist.center_y = (spritelist.center_y + self._input_service.get_change_y())
-
-
 
         # For now, this works for only moving the main character
         player_sprite_list = cast[0]
@@ -47,11 +38,9 @@ class ControlActorsAction(Action):
         
 
         changex = player_sprite.center_x + new_change_x
-        if changex > 0 and changex < constants.SCREEN_WIDTH: #or changex < constants.SCREEN_WIDTH:
-            player_sprite.center_x = changex
+        player_sprite.center_x = changex
         changey = player_sprite.center_y + new_change_y
-        if changey > 0 and changey < constants.SCREEN_HEIGHT:
-            player_sprite.center_y = changey
+        player_sprite.center_y = changey
 
         for penguin in penguin_follower:
             penguin_change_x = new_change_x + random.randint(-5, 5) + penguin.center_x
@@ -65,11 +54,6 @@ class ControlActorsAction(Action):
 
             if penguin_change_y > 0 and penguin_change_y < constants.SCREEN_HEIGHT: 
                 penguin.center_y = penguin_change_y
-
-            # delta_x = player_sprite.center_x - penguin.center_x
-            # penguin.center_x = self.move_follower(delta_x,player_sprite.center_x)
-            # delta_y = player_sprite.center_y - penguin.center_y
-            # penguin.center_y = self.move_follower(delta_y,player_sprite.center_y)
 
     def move_follower(self,delta,center):
         move = random.randint(0, 50)
@@ -87,14 +71,4 @@ class ControlActorsAction(Action):
                 center -= random.randint(0, delta)
         return center
         
-        
-
-
-        # self._input_service.get_change_x()
-        # self._input_service.get_change_y()
-        
-        # self.player_sprite.center_x = (self.player_sprite.center_x + self._input_service.player_sprite.change_x)
-        # self.player_sprite.center_y = (self.player_sprite.center_y + self._input_service.player_sprite.change_y)
-    
-
         

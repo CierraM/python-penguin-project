@@ -2,7 +2,7 @@ import random
 import arcade
 from game import constants
 from game.action import Action
-from game.point import Point
+
 
 class HandleCollisionsAction(Action):
     """A code template for handling collisions. The responsibility of this class of objects is to update the game state when actors collide.
@@ -11,7 +11,11 @@ class HandleCollisionsAction(Action):
         Controller
     """
 
+    def __init__(self, director):
+        self.director = director
+
     def execute(self, cast):
+        self.director.physics_engine.update()
         """Executes the action using the given actors.
 
         Args:
@@ -22,7 +26,9 @@ class HandleCollisionsAction(Action):
         small_penguin_list = cast[1]
         small_penguin_list.update()
         follower_list = cast[2]
-        # penguin_hit_list = arcade.check_for_collision_with_list(self.player_sprite, self.follower_list)  
+        
+        
+        #Collision handling for big penguin with little penguin
         # # Generate a list of all sprites that collided with the player.
         penguin_hit_list = arcade.check_for_collision_with_list(player_sprite, small_penguin_list)
         # Loop through each colliding sprite, and append to follower list
@@ -31,7 +37,17 @@ class HandleCollisionsAction(Action):
             follower_list.append(penguin) 
             penguin.center_x = player_sprite.center_x + random.randint(-20, 40)
             penguin.center_y = player_sprite.center_y + random.randint(-20, 40)
-        # self.following = arcade.Sprite("penguin/game/assets/graphics/followerPenguin.png", .15)
-        # self.following.center_x = 20 + (constants.SCREEN_WIDTH / 2) 
-        # self.following.center_y = 20 + (constants.SCREEN_HEIGHT / 2)
-        # self.following_list.append(self.following)
+
+         # Collision handling for switching rooms:
+        if player_sprite.center_x > constants.SCREEN_WIDTH and self.director.current_room == 0:
+            self.director.update_room(0, 1)
+            player_sprite.center_x -= constants.SCREEN_WIDTH
+            for follower in follower_list:
+                follower.center_x -= constants.SCREEN_WIDTH
+        
+        elif player_sprite.center_x < 0 and self.director.current_room == 1:
+            self.director.update_room(1, 0)
+            player_sprite.center_x += constants.SCREEN_WIDTH
+            for follower in follower_list:
+                follower.center_x += constants.SCREEN_WIDTH
+            
