@@ -19,6 +19,7 @@ class InputService:
         self._modifiers = ""
         self.sprite_change_x = 0
         self.sprite_change_y = 0
+        self.create_bullet = False
         
     def key_press(self, symbol, modifiers):
         """Gets the selected direction for the given player.
@@ -45,6 +46,13 @@ class InputService:
 
         if self._symbol == arcade.key.S or self._symbol == arcade.key.DOWN:
             self.sprite_change_y = -10
+        
+        #This is for firing bullets
+        if self._symbol == arcade.key.SPACE:
+                self.create_bullet = True
+                
+
+
 
     def key_release(self, symbol, modifiers):
 
@@ -66,12 +74,19 @@ class InputService:
             or self._symbol == arcade.key.DOWN
         ):
             self.sprite_change_y = 0
+        
+        #This is for firing bullets
+        if self._symbol == arcade.key.SPACE:
+            self.create_bullet = False
 
     def get_change_x(self):
         return self.sprite_change_x
 
     def get_change_y(self):
         return self.sprite_change_y
+    
+    def get_create_bullet(self):
+        return self.create_bullet
 
     # def set_symbols(self, symbol, modifiers):
     #     self._symbol = symbol

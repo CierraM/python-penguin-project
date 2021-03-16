@@ -19,6 +19,7 @@ class DrawActorsAction(Action):
             output_service (OutputService): An instance of OutputService.
         """
         self._output_service = output_service
+        
 
     def execute(self, cast):
         """Executes the action using the given actors. The action in this
@@ -27,6 +28,14 @@ class DrawActorsAction(Action):
         Args:
             cast (dict): The game actors {key: tag, value: list}.
         """
+        
+
         for spritelist in cast:
             self._output_service.draw_actors(spritelist)
+
+        #This specifically draws the health bar for the player
+        self.player_sprite = cast[0]
+        for player in self.player_sprite:
+            player.draw_health_number()
+            player.draw_health_bar()
 
