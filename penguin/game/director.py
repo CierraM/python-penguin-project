@@ -4,7 +4,6 @@ from game.control_actors_action import ControlActorsAction
 from game.draw_actors_action import DrawActorsAction
 from game.handle_collisions_action import HandleCollisionsAction
 from game.input_service import InputService
-from game.output_service import OutputService
 from game.handle_health import SpriteWithHealth
 import arcade
 from game import constants

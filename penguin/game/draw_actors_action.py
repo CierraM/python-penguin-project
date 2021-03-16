@@ -18,7 +18,6 @@ class DrawActorsAction(Action):
         Args:
             output_service (OutputService): An instance of OutputService.
         """
-        self._output_service = output_service
         
 
     def execute(self, cast):
