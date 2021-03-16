@@ -4,3 +4,12 @@ SCREEN_HEIGHT = 700
 SCREEN_TITLE = "The Penguins' Revenge"
 FRAME_LENGTH = 0.05
 
+BULLET_SPEED = 8
+
+#Constants for working with player penguin health bar/text
+HEALTHBAR_WIDTH = 40
+HEALTHBAR_HEIGHT = 5
+HEALTHBAR_OFFSET_Y = 40
+
+HEALTH_NUMBER_OFFSET_X = -10
+HEALTH_NUMBER_OFFSET_Y = 33
