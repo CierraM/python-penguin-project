@@ -1,8 +1,8 @@
+# from pyglet.libs.x11.xlib import CapNotLast
 from game import constants
 from game.control_actors_action import ControlActorsAction
 from game.draw_actors_action import DrawActorsAction
 from game.handle_collisions_action import HandleCollisionsAction
-from game.move_actors_action import MoveActorsAction
 from game.input_service import InputService
 from game.output_service import OutputService
 from game.handle_health import SpriteWithHealth
@@ -10,6 +10,8 @@ import arcade
 from game import constants
 from game.sounds import Sounds
 import random
+from game.rooms import Rooms
+
 
 class Director(arcade.Window):
     """A code template for a person who directs the game. The responsibility of 
@@ -32,17 +34,20 @@ class Director(arcade.Window):
         """
         
         
-        
         # Setup the window
         super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
         arcade.set_background_color(arcade.color.BUBBLES)
         self.set_update_rate(1/30)
         self.setup()
+        
 
         
     def setup(self):
+
+        
+        self.physics_engine = None
         self.sounds = Sounds()
-        self.sounds.play_sound("main_2")
+        self.sounds.play_sound("main_1")
 
         self.player_list = arcade.SpriteList() # you
         self.follower_list = arcade.SpriteList() # penguins that could follow you
@@ -75,21 +80,24 @@ class Director(arcade.Window):
         self._cast.append(self.player_bullet_list)
         self._cast.append(self.enemy_bullet_list)
 
+        # Add room setup to the cast also
+        self.setup_rooms()
         # create the script {key: tag, value: list}
         self._script = {}
 
         self.input_service = InputService()
-        output_service = OutputService()
+
         # output_service.draw_actors(cast["avatar"])
         control_actors_action = ControlActorsAction(self.input_service)
-        move_actors_action = MoveActorsAction()
-        handle_collisions_action = HandleCollisionsAction()
-        draw_actors_action = DrawActorsAction(output_service)
+        
+        handle_collisions_action = HandleCollisionsAction(self)
+        draw_actors_action = DrawActorsAction()
 
         self._script["input"] =  [control_actors_action]
-        self._script["update"] = [move_actors_action, handle_collisions_action]
+        self._script["update"] = [handle_collisions_action]
         self._script["output"] = [draw_actors_action]
 
+        
         
 
     def start_game(self):
@@ -123,3 +131,27 @@ class Director(arcade.Window):
         
         for action in self._script[tag]:
             action.execute(self._cast)
+
+    def setup_rooms(self):
+        self.all_rooms = Rooms()
+        self.rooms = []
+
+        room = self.all_rooms.setup_room_1()
+        self.rooms.append(room)
+        room = self.all_rooms.setup_room_2()
+        self.rooms.append(room)
+    
+        self.current_room = self.all_rooms.current_room
+        self._cast.append(self.rooms[self.current_room].wall_list)
+        self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite, self.rooms[self.current_room].wall_list)
+        
+
+    def update_room(self, prev, new):
+        self.physics_engine.update()
+        self._cast.remove(self.rooms[prev].wall_list)
+        self.all_rooms.current_room = new
+        self.current_room = self.all_rooms.current_room
+        self._cast.append(self.rooms[self.current_room].wall_list)
+        self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite, self.rooms[self.current_room].wall_list)
+        
+        

@@ -12,7 +12,7 @@ class DrawActorsAction(Action):
         _output_service (OutputService): An instance of OutputService.
     """
 
-    def __init__(self, output_service):
+    def __init__(self):
         """The class constructor.
         
         Args:
@@ -31,7 +31,7 @@ class DrawActorsAction(Action):
         
 
         for spritelist in cast:
-            self._output_service.draw_actors(spritelist)
+            spritelist.draw()
 
         #This specifically draws the health bar for the player
         self.player_sprite = cast[0]
