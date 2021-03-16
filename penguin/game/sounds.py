@@ -10,7 +10,8 @@ class Sounds:
         self.sounds = {"main_1":"penguin/game/assets/sounds/CrystalCaverns.wav", 
                        "main_2":"penguin/game/assets/sounds/SleighRide.wav",
                        "boss":"penguin/game/assets/sounds/IceBlizzard.wav",
-                       "end":"penguin/game/assets/sounds/IceCream.wav"}
+                       "end":"penguin/game/assets/sounds/IceCream.wav",
+                       "penguin-hit":"penguin/game/assets/sounds/hit.wav"}
     
     def play_sound(self, sound):
         arcade.Sound(self.sounds[sound]).play(volume=self.volume)

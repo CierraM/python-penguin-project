@@ -2,6 +2,7 @@ import random
 import arcade
 from game import constants
 from game.action import Action
+from game.sounds import Sounds
 
 
 class HandleCollisionsAction(Action):
@@ -13,6 +14,7 @@ class HandleCollisionsAction(Action):
 
     def __init__(self, director):
         self.director = director
+        self.sounds = Sounds()
 
     def execute(self, cast):
         self.director.physics_engine.update()
@@ -40,6 +42,7 @@ class HandleCollisionsAction(Action):
             follower_list.append(penguin) 
             penguin.center_x = player_sprite.center_x + random.randint(-20, 40)
             penguin.center_y = player_sprite.center_y + random.randint(-20, 40)
+            self.sounds.play_sound("penguin-hit")
 
          # Collision handling for switching rooms:
         if player_sprite.center_x > constants.SCREEN_WIDTH and self.director.current_room == 0:
