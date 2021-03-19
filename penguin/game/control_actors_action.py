@@ -22,6 +22,11 @@ class ControlActorsAction(Action):
         """
         self._input_service = input_service
         self.min_distance = 100
+        self.boss_move_x = 7
+        self.boss_move_y = -50
+        self.boss_wall_hits = 0
+        self.fire_speed = 10
+
 
     def execute(self, cast):
         """Executes the action using the given actors.
@@ -30,15 +35,27 @@ class ControlActorsAction(Action):
             cast (dict): The game actors {key: tag, value: list}.
         """
 
-        # For now, this works for only moving the main character
         player_sprite_list = cast[0]
         player_sprite = player_sprite_list[0]
+        move_boss = len(player_sprite_list) > 1
+        if move_boss:
+            boss_sprite = player_sprite_list[1]
         penguin_follower = cast[2]
         bullet_list = cast[3]
         new_bullet = self._input_service.get_create_bullet()
         new_change_x = self._input_service.get_change_x()
         new_change_y = self._input_service.get_change_y()
         
+        if move_boss:
+            enemy_bullet_list = cast[4]
+            if boss_sprite.center_x >= constants.SCREEN_WIDTH:
+                self.boss_move_x = 0 - self.boss_move_x 
+                self.boss_wall_hits += 1
+            elif boss_sprite.center_x <= 0:
+                boss_sprite.center_y += self.boss_move_y
+                self.boss_move_x = 0 - self.boss_move_x
+                self.boss_move_y = 0 -self.boss_move_y
+            boss_sprite.center_x += self.boss_move_x
 
         changex = player_sprite.center_x + new_change_x
         player_sprite.center_x = changex
@@ -64,7 +81,7 @@ class ControlActorsAction(Action):
             # penguin.center_y = self.move_follower(delta_y,player_sprite.center_y)
 
         #This creates a new bullet and gives it attributes
-        if new_bullet:
+        if new_bullet and self.fire_speed == 0:
 
             bullet = arcade.Sprite("penguin/game/assets/graphics/penguinSnowball.png", .18)
 
@@ -76,6 +93,22 @@ class ControlActorsAction(Action):
             bullet.bottom = player_sprite.top
 
             bullet_list.append(bullet)
+            self.fire_speed = 10
+        else:
+            self.fire_speed = self.fire_speed - 1
+            if self.fire_speed < 0:
+                self.fire_speed = 10
+
+        if move_boss and random.randint(0, 100) > 90:
+
+            bullet = arcade.Sprite("penguin/game/assets/graphics/bossSnowball.png", .15)
+            bullet.angle = -90
+            bullet.change_y = 0 - constants.BULLET_SPEED
+            bullet.top = boss_sprite.center_y
+            bullet.center_x = boss_sprite.center_x
+            enemy_bullet_list.append(bullet)
+        if move_boss and len(enemy_bullet_list) > 0:
+            enemy_bullet_list.update()
 
     def move_follower(self,delta,center):
         move = random.randint(0, 50)

@@ -57,10 +57,17 @@ class Director(arcade.Window):
         # Also commented this out until we finish the following_list
         #self.following_list = arcade.SpriteList() # penguins that are actually following you
     
+        #this is the player sprite
         self.player_sprite = SpriteWithHealth("penguin/game/assets/graphics/penguin.png", .25, max_health = 3) # this function give the sprite a health bar
         self.player_sprite.center_x = (constants.SCREEN_WIDTH / 2)
         self.player_sprite.center_y = (constants.SCREEN_HEIGHT / 2)
         self.player_list.append(self.player_sprite)
+
+        #this is the Boss sprite
+        self.boss_sprite = SpriteWithHealth("penguin/game/assets/graphics/boss.png", .25, max_health = 10) # this function give the sprite a health bar
+        self.boss_sprite.center_x = (constants.SCREEN_WIDTH / 2)
+        self.boss_sprite.center_y = (constants.SCREEN_HEIGHT - 150)
+        #self.player_list.append(self.boss_sprite)
 
     
         for x in range(random.randint(1, 10)):      
@@ -151,6 +158,12 @@ class Director(arcade.Window):
         self.all_rooms.current_room = new
         self.current_room = self.all_rooms.current_room
         self._cast.append(self.rooms[self.current_room].wall_list)
+        if new == 1:
+            #self._cast.append(self.boss_sprite)
+            self.player_list.append(self.boss_sprite)
+        else:
+            self.player_list.remove(self.boss_sprite)
+            #self._cast.remove(self.boss_sprite)
         self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite, self.rooms[self.current_room].wall_list)
         
         
