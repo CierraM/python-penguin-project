@@ -25,7 +25,8 @@ class ControlActorsAction(Action):
         self.boss_move_x = 7
         self.boss_move_y = -50
         self.boss_wall_hits = 0
-        self.fire_speed = 10
+        # self.fire_speed = 10
+        self.bullet_buffer = 9
 
 
     def execute(self, cast):
@@ -81,23 +82,34 @@ class ControlActorsAction(Action):
             # penguin.center_y = self.move_follower(delta_y,player_sprite.center_y)
 
         #This creates a new bullet and gives it attributes
-        if new_bullet and self.fire_speed == 0:
+        # if new_bullet and self.fire_speed == 0:
+        if new_bullet:
+            self.bullet_buffer += 1
+            if self.bullet_buffer % 10 == 0:
+                bullet = arcade.Sprite("penguin/game/assets/graphics/penguinSnowball.png", .18)
 
-            bullet = arcade.Sprite("penguin/game/assets/graphics/penguinSnowball.png", .18)
+                bullet.angle = 0
 
-            bullet.angle = 90
+                bullet.change_y = constants.BULLET_SPEED
 
-            bullet.change_y = constants.BULLET_SPEED
+                bullet.center_x = player_sprite.center_x
+                bullet.bottom = player_sprite.top
 
-            bullet.center_x = player_sprite.center_x
-            bullet.bottom = player_sprite.top
-
-            bullet_list.append(bullet)
-            self.fire_speed = 10
+                bullet_list.append(bullet)
+            else:
+                pass
         else:
-            self.fire_speed = self.fire_speed - 1
-            if self.fire_speed < 0:
-                self.fire_speed = 10
+            self.bullet_buffer = 9
+
+        #     bullet.center_x = player_sprite.center_x
+        #     bullet.bottom = player_sprite.top
+
+        #     bullet_list.append(bullet)
+        #     self.fire_speed = 10
+        # else:
+        #     self.fire_speed = self.fire_speed - 1
+        #     if self.fire_speed < 0:
+        #         self.fire_speed = 10
 
         if move_boss and random.randint(0, 100) > 90:
 
