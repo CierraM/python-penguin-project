@@ -111,8 +111,11 @@ class Director(arcade.Window):
 
     def on_draw(self):
         arcade.start_render()
+        if self.rooms[self.current_room].background:
+            self.rooms[self.current_room].background.draw()
         self._cue_action("output")
         # If you want to draw text on the screen put it here
+        
 
     def on_key_press(self, symbol, modifiers):
         self.input_service.key_press(symbol, modifiers)

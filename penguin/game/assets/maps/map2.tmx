@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="37" height="21" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="109">
+ <editorsettings>
+  <export target="map2..tmx" format="tmx"/>
+ </editorsettings>
+ <tileset firstgid="1" source="tiles.tsx"/>
+ <tileset firstgid="61" name="tiles2" tilewidth="32" tileheight="32" tilecount="60" columns="10">
+  <image source="TilesA2.png" width="320" height="192"/>
+ </tileset>
+ <layer id="1" name="background_color" width="37" height="21">
+  <data encoding="base64" compression="zlib">
+   eJzt1TEKACEMRNFUYrO27gG8/xm1FMnGBB02gsVvhwdCLERUbuqio04zBSa0JwgmzoO09ducaebZ7Rp3V0yrrq/N0WTxoNKYnlZyZsqt15nJ49udaLLeNqsJfQvQpt23UjJpbKh/ZWb6I4+m2JluchXHByof
+  </data>
+ </layer>
+ <objectgroup id="2" name="Object Layer 1">
+  <object id="99" gid="13" x="287.391" y="319.391" width="32" height="32"/>
+  <object id="100" gid="14" x="316.18" y="317.176" width="32" height="32"/>
+  <object id="101" gid="23" x="287.391" y="352.609" width="32" height="32"/>
+  <object id="102" gid="24" x="322.824" y="350.394" width="32" height="32"/>
+  <object id="104" gid="24" x="320.609" y="354.824" width="32" height="32"/>
+  <object id="106" gid="14" x="322.824" y="321.606" width="32" height="32"/>
+ </objectgroup>
+</map>
