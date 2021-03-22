@@ -14,47 +14,27 @@ class Rooms:
         # Sprite lists
         room.wall_list = arcade.SpriteList()
 
-        #Loop to create walls
-        for y in (0, constants.SCREEN_HEIGHT - constants.SPRITE_SIZE):
-            for x in range(0, constants.SCREEN_WIDTH, constants.SPRITE_SIZE):
-                wall = arcade.Sprite("penguin/game/assets/graphics/ice-block.png", constants.SPRITE_SCALING)
-                wall.left = x
-                wall.bottom = y
-                room.wall_list.append(wall)
-        for x in (0, constants.SCREEN_WIDTH - constants.SPRITE_SIZE):
-        # Loop for each box going across
+        map_name = "penguin/game/assets/map/room_1.tmx"
 
-            for y in range(constants.SPRITE_SIZE, constants.SCREEN_HEIGHT - constants.SPRITE_SIZE, constants.SPRITE_SIZE):
-                # Skip making a block 4 and 5 blocks up on the right side
-                if (y != constants.SPRITE_SIZE * 4 and y != constants.SPRITE_SIZE * 5) or x == 0:
-                    wall = arcade.Sprite("penguin/game/assets/graphics/ice-block.png", constants.SPRITE_SCALING)
-                    wall.left = x
-                    wall.bottom = y
-                    room.wall_list.append(wall)
+        walls_layer_name = "Object Layer 1"
+        background_layer_name = "Tile Layer 1"
 
-            wall = arcade.Sprite("penguin/game/assets/graphics/ice-block.png", constants.SPRITE_SCALING)
-            wall.left = 7 * constants.SPRITE_SIZE
-            wall.bottom = 5 * constants.SPRITE_SIZE
-            room.wall_list.append(wall)
+        my_map = arcade.tilemap.read_tmx(map_name)
 
-            return room
+        room.wall_list = arcade.tilemap.process_layer(map_object=my_map, layer_name=walls_layer_name, scaling=constants.TILE_SCALING, use_spatial_hash=True)
+        room.background = arcade.tilemap.process_layer(map_object=my_map, layer_name=background_layer_name, scaling=constants.TILE_SCALING, use_spatial_hash=True)
+
+        return room
 
     def setup_room_2(self):
         room = Room()
         # Sprite lists
         room.wall_list = arcade.SpriteList()
 
-        #Loop to create walls
-        for y in (0, constants.SCREEN_HEIGHT - constants.SPRITE_SIZE):
-            for x in range(0, constants.SCREEN_WIDTH, constants.SPRITE_SIZE):
-                wall = arcade.Sprite("penguin/game/assets/graphics/bossSnowball.png", constants.SPRITE_SCALING)
-                wall.left = x
-                wall.bottom = y
-                room.wall_list.append(wall)
-        for x in (0, constants.SCREEN_WIDTH - constants.SPRITE_SIZE):
+        
 
 
-            return room
+        return room
 
 
             

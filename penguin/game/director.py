@@ -159,11 +159,9 @@ class Director(arcade.Window):
         self.current_room = self.all_rooms.current_room
         self._cast.append(self.rooms[self.current_room].wall_list)
         if new == 1:
-            #self._cast.append(self.boss_sprite)
             self.player_list.append(self.boss_sprite)
         else:
             self.player_list.remove(self.boss_sprite)
-            #self._cast.remove(self.boss_sprite)
         self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite, self.rooms[self.current_room].wall_list)
         
         
