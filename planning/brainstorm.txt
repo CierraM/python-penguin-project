@@ -68,6 +68,18 @@ You have 3 chances to not get hit by snowball?
 Main character and boss can throw snowball
 Start polar bear off with 5 health
 
+Week 3:
+Add music to go with rooms
+add the rest of the rooms to the map - Jane & Cierra
+
+small penguins throw snowballs
+Health/collisions in boss battle
+collision sounds for snowballs
+boss room rules/setup
+
+intro/exit screens
+keep small penguins from wandering off or going through walls - Jacob
+
 
 Intro story:
 Most people don't know the story of the penguins' plight. A long time ago, they could fly as any other bird. They ruled the skies magestically.

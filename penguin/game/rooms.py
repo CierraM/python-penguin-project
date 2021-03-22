@@ -27,9 +27,14 @@ class Rooms:
         objects_layer_name = "walls"
         background_layer_name = "background"
 
+
         my_map = arcade.tilemap.read_tmx(map_name)
 
+        
+
+
         room.wall_list = arcade.tilemap.process_layer(map_object=my_map, layer_name=objects_layer_name, scaling=constants.TILE_SCALING, use_spatial_hash=True)
+
 
         room.background = arcade.tilemap.process_layer(map_object=my_map, layer_name=background_layer_name, scaling=constants.TILE_SCALING, use_spatial_hash=True)
 
