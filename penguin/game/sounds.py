@@ -11,7 +11,11 @@ class Sounds:
                        "main_2":"penguin/game/assets/sounds/SleighRide.wav",
                        "boss":"penguin/game/assets/sounds/IceBlizzard.wav",
                        "end":"penguin/game/assets/sounds/IceCream.wav",
-                       "penguin-hit":"penguin/game/assets/sounds/hit.wav"}
+                       "penguin-hit":"penguin/game/assets/sounds/hit.wav",
+                       "boss-hit":"penguin/game/assets/sounds/pop.wav",
+                       "boss-death":"penguin/game/assets/sounds/roar.wav",
+                       "player-death":"penguin/game/assets/sounds/recharage.wav",
+                       "player-hit":"penguin/game/assets/sounds/sweep.wav"}
     
     def play_sound(self, sound):
         arcade.Sound(self.sounds[sound]).play(volume=self.volume)
