@@ -96,27 +96,48 @@ class HandleCollisionsAction(Action):
         #This code is created for the player's bullets to hit the boss
         player_bullet_list.update()
         for bullet in player_bullet_list:
-            #hit_list_1 = arcade.check_for_collision_with_list(bullet, #Whatever we want)
-            # if len(hit_list) > 0:
-            #     bullet.remove_from_sprite_lists()
-            
+            if move_boss:
+                hit_list_1 = arcade.check_for_collision_with_list(bullet, player_sprite_list)
+                if len(hit_list_1) > 0:
+                    bullet.remove_from_sprite_lists()
+                for hit in hit_list_1:
+                    #remove 1 point of health per hit
+                    boss_sprite.cur_health -= 1
+
+                    if boss_sprite.cur_health <= 0:
+                        #Dead
+                        self.sounds.play_sound("boss-death")
+                        boss_sprite.remove_from_sprite_lists()
+                    else:
+                        #Not dead
+                        self.sounds.play_sound("boss-hit")
             if bullet.bottom > constants.SCREEN_HEIGHT:
                 bullet.remove_from_sprite_lists()
 
         #This code is for the boss's bullets to hit the player
+        enemy_bullet_list.update()
         if move_boss:
-            enemy_bullet_list.update()
             hit_list_2 = arcade.check_for_collision_with_list(player_sprite, enemy_bullet_list)
             for bullet in hit_list_2:
                 bullet.remove_from_sprite_lists()
-            
-        #     if player_sprite.cur_health <= 0:
-        #         #insert code for death/end game
-        #         pass
-        #     else:
-        #         #insert sound for taking a hit
-        #         pass
-            
-        #     if bullet.bottom < constants.SCREEN_HEIGHT:
-        #         bullet.remove_from_sprite_lists()
+
+                #remove 1 point of health per hit
+                player_sprite.cur_health -= 1
+
+                if player_sprite.cur_health <= 0:
+                    #Dead
+                    self.sounds.play_sound("player-death")
+                else:
+                    #Not dead
+                    self.sounds.play_sound("player-hit")
+
+                # if player_sprite.cur_health <= 0:
+                #     #insert code for death/end game
+                #     pass
+                # else:
+                #     #insert sound for taking a hit
+                #     pass
+                
+                if bullet.bottom < 0:
+                    bullet.remove_from_sprite_lists()
         
