@@ -48,20 +48,45 @@ class HandleCollisionsAction(Action):
             self.sounds.play_sound("penguin-hit")
 
          # Collision handling for switching rooms:
-        if player_sprite.center_x > constants.SCREEN_WIDTH and self.director.current_room == 0:
-            self.director.update_room(0, 1)
-            move_boss = True
-            player_sprite.center_x -= constants.SCREEN_WIDTH
-            for follower in follower_list:
-                follower.center_x -= constants.SCREEN_WIDTH
-        
-        elif player_sprite.center_x < 0 and self.director.current_room == 1:
-            self.director.update_room(1, 0)
+         #Go from room 1 to room 2
+        if player_sprite.center_x > self.director.rooms[self.director.current_room].width and self.director.current_room == 0:
+            self.director.update_room(1, 2)
             move_boss = False
-            player_sprite.center_x += constants.SCREEN_WIDTH
+            player_sprite.center_x = 0
+            player_sprite.center_y = self.director.rooms[self.director.current_room].height / 2
             for follower in follower_list:
-                follower.center_x += constants.SCREEN_WIDTH
+                follower.center_x = 0
+                follower.center_y = self.director.rooms[self.director.current_room].height / 2
+        
+        #Go from room 2 to room 1
+        elif player_sprite.center_x < 0 and self.director.current_room == 1:
+            self.director.update_room(2, 1)
+            move_boss = False
+            player_sprite.center_x = self.director.rooms[self.director.current_room].width
+            for follower in follower_list:
+                follower.center_x = self.director.rooms[self.director.current_room].width
+        
+        #Go from room 1 to room 3
+        
+        elif player_sprite.center_y > self.director.rooms[self.director.current_room].height and self.director.current_room == 0:
+            self.director.update_room(1, 3)
+            move_boss = False
+            player_sprite.center_x = self.director.rooms[self.director.current_room].width / 2
+            player_sprite.center_y = 0
+            for follower in follower_list:
+                follower.center_x = self.director.rooms[self.director.current_room].width / 2
+                follower.center_y = 0
             
+        #Go from room 3 to room 1
+        elif player_sprite.center_y < 0 and self.director.current_room == 2:
+            self.director.update_room(3, 1)
+            move_boss = False
+            player_sprite.center_x = self.director.rooms[self.director.current_room].width / 2
+            player_sprite.center_y = self.director.rooms[self.director.current_room].height
+            for follower in follower_list:
+                follower.center_x = self.director.rooms[self.director.current_room].width / 2
+                follower.center_y = self.director.rooms[self.director.current_room].height
+
         # self.following = arcade.Sprite("penguin/game/assets/graphics/followerPenguin.png", .15)
         # self.following.center_x = 20 + (constants.SCREEN_WIDTH / 2) 
         # self.following.center_y = 20 + (constants.SCREEN_HEIGHT / 2)

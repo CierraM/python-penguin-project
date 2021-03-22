@@ -37,6 +37,8 @@ class Director(arcade.Window):
         super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
         arcade.set_background_color(arcade.color.BUBBLES)
         self.set_update_rate(1/30)
+        self.view_bottom = 0
+        self.view_left = 0
         self.setup()
         
 
@@ -46,7 +48,11 @@ class Director(arcade.Window):
         
         self.physics_engine = None
         self.sounds = Sounds()
-        self.sounds.play_sound("main_1")
+        # self.sounds.play_sound("main_1")
+
+        # Keep track of scrolling
+        self.view_bottom = 0
+        self.view_left = 0
 
         self.player_list = arcade.SpriteList() # you
         self.follower_list = arcade.SpriteList() # penguins that could follow you
@@ -59,8 +65,9 @@ class Director(arcade.Window):
     
         #this is the player sprite
         self.player_sprite = SpriteWithHealth("penguin/game/assets/graphics/penguin.png", .25, 32, 33, -10, 11, 40, 5,  max_health = 3) # this function give the sprite a health bar
-        self.player_sprite.center_x = (constants.SCREEN_WIDTH / 2)
-        self.player_sprite.center_y = (constants.SCREEN_HEIGHT / 2)
+        self.player_sprite.center_x = (1184)
+        self.player_sprite.center_y = (704)
+        
         self.player_list.append(self.player_sprite)
 
         #this is the Boss sprite
@@ -115,6 +122,45 @@ class Director(arcade.Window):
         self._cue_action("input")
         self._cue_action("update")
 
+        # Scrolling
+        changed = False
+        # Scroll left
+        left_boundary = self.view_left + constants.LEFT_VIEWPORT_MARGIN
+        if self.player_sprite.left < left_boundary:
+            self.view_left -= left_boundary - self.player_sprite.left
+            changed = True
+
+        # Scroll right
+        right_boundary = self.view_left + constants.SCREEN_WIDTH - constants.RIGHT_VIEWPORT_MARGIN
+        if self.player_sprite.right > right_boundary:
+            self.view_left += self.player_sprite.right - right_boundary
+            changed = True
+
+        # Scroll up
+        top_boundary = self.view_bottom + constants.SCREEN_HEIGHT - constants.TOP_VIEWPORT_MARGIN
+        if self.player_sprite.top > top_boundary:
+            self.view_bottom += self.player_sprite.top - top_boundary
+            changed = True
+
+        # Scroll down
+        bottom_boundary = self.view_bottom + constants.BOTTOM_VIEWPORT_MARGIN
+        if self.player_sprite.bottom < bottom_boundary:
+            self.view_bottom -= bottom_boundary - self.player_sprite.bottom
+            changed = True
+
+        if changed:
+            # Only scroll to integers. Otherwise we end up with pixels that
+            # don't line up on the screen
+            self.view_bottom = int(self.view_bottom)
+            self.view_left = int(self.view_left)
+
+            # Do the scrolling
+            arcade.set_viewport(self.view_left,
+                                constants.SCREEN_WIDTH + self.view_left,
+                                self.view_bottom,
+                                constants.SCREEN_HEIGHT + self.view_bottom)
+
+
 
     def on_draw(self):
         arcade.start_render()
@@ -149,6 +195,20 @@ class Director(arcade.Window):
         self.rooms.append(room)
         room = self.all_rooms.setup_room_2()
         self.rooms.append(room)
+        room = self.all_rooms.setup_room_3()
+        self.rooms.append(room)
+        room = self.all_rooms.setup_room_4()
+        self.rooms.append(room)
+        room = self.all_rooms.setup_room_5()
+        self.rooms.append(room)
+        room = self.all_rooms.setup_room_6()
+        self.rooms.append(room)
+        room = self.all_rooms.setup_room_7()
+        self.rooms.append(room)
+        room = self.all_rooms.setup_room_8()
+        self.rooms.append(room)
+        room = self.all_rooms.setup_room_9()
+        self.rooms.append(room)
     
         self.current_room = self.all_rooms.current_room
         self._cast.append(self.rooms[self.current_room].wall_list)
@@ -157,13 +217,13 @@ class Director(arcade.Window):
 
     def update_room(self, prev, new):
         self.physics_engine.update()
-        self._cast.remove(self.rooms[prev].wall_list)
-        self.all_rooms.current_room = new
+        self._cast.remove(self.rooms[prev-1].wall_list)
+        self.all_rooms.current_room = new-1
         self.current_room = self.all_rooms.current_room
         self._cast.append(self.rooms[self.current_room].wall_list)
-        if new == 1:
+        if new == 8:
             self.player_list.append(self.boss_sprite)
-        else:
+        elif self.boss_sprite in self.player_list:
             self.player_list.remove(self.boss_sprite)
         self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite, self.rooms[self.current_room].wall_list)
         
