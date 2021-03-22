@@ -47,10 +47,7 @@ class Rooms:
         objects_layer_name = "walls"
         background_layer_name = "background"
 
-
         my_map = arcade.tilemap.read_tmx(map_name)
-
-        
 
 
         room.wall_list = arcade.tilemap.process_layer(map_object=my_map, layer_name=objects_layer_name, scaling=constants.TILE_SCALING, use_spatial_hash=True)
@@ -124,13 +121,13 @@ class Rooms:
 
         return room
 
-    def setup_room_8(self): # placeholder room
+    def setup_room_8(self):
         room = Room()
-        room.width = 2368
-        room.height = 1344
-        map_name = "penguin/game/assets/maps/room_1.tmx"
-        objects_layer_name = "Object Layer 1"
-        background_layer_name = "background_color"
+        room.width = 1184
+        room.height = 672
+        map_name = "penguin/game/assets/maps/room_8.tmx"
+        objects_layer_name = "walls"
+        background_layer_name = "background"
 
         my_map = arcade.tilemap.read_tmx(map_name)
 

@@ -87,6 +87,16 @@ class HandleCollisionsAction(Action):
                 follower.center_x = self.director.rooms[self.director.current_room].width / 2
                 follower.center_y = self.director.rooms[self.director.current_room].height
 
+        #Go from room 3 to room 8
+        elif player_sprite.center_y > self.director.rooms[self.director.current_room].height and self.director.current_room == 2:
+            self.director.update_room(3, 8)
+            move_boss = False
+            player_sprite.center_x = self.director.rooms[self.director.current_room].width / 2
+            player_sprite.center_y = 0
+            for follower in follower_list:
+                follower.center_x = self.director.rooms[self.director.current_room].width / 2
+                follower.center_y = 0
+
         # self.following = arcade.Sprite("penguin/game/assets/graphics/followerPenguin.png", .15)
         # self.following.center_x = 20 + (constants.SCREEN_WIDTH / 2) 
         # self.following.center_y = 20 + (constants.SCREEN_HEIGHT / 2)
