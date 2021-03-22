@@ -48,7 +48,8 @@ class InputService:
         
         #This is for firing bullets
         if self._symbol == arcade.key.SPACE:
-                self.create_bullet = True
+            self.create_bullet = True
+    
                 
 
 
@@ -77,6 +78,7 @@ class InputService:
         #This is for firing bullets
         if self._symbol == arcade.key.SPACE:
             self.create_bullet = False
+            
 
     def get_change_x(self):
         return self.sprite_change_x

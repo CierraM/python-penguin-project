@@ -28,11 +28,14 @@ class HandleCollisionsAction(Action):
         small_penguin_list = cast[1]
         small_penguin_list.update()
         follower_list = cast[2]
+        move_boss = len(player_sprite_list) > 1
+        if move_boss:
+            boss_sprite = player_sprite_list[1]
+        enemy_bullet_list = cast[4]
         
         
         #Collision handling for big penguin with little penguin
         player_bullet_list = cast[3]
-        enemy_bullet_list = cast[4]
         # penguin_hit_list = arcade.check_for_collision_with_list(self.player_sprite, self.follower_list)  
         # # Generate a list of all sprites that collided with the player.
         penguin_hit_list = arcade.check_for_collision_with_list(player_sprite, small_penguin_list)
@@ -47,12 +50,14 @@ class HandleCollisionsAction(Action):
          # Collision handling for switching rooms:
         if player_sprite.center_x > constants.SCREEN_WIDTH and self.director.current_room == 0:
             self.director.update_room(0, 1)
+            move_boss = True
             player_sprite.center_x -= constants.SCREEN_WIDTH
             for follower in follower_list:
                 follower.center_x -= constants.SCREEN_WIDTH
         
         elif player_sprite.center_x < 0 and self.director.current_room == 1:
             self.director.update_room(1, 0)
+            move_boss = False
             player_sprite.center_x += constants.SCREEN_WIDTH
             for follower in follower_list:
                 follower.center_x += constants.SCREEN_WIDTH
@@ -74,19 +79,19 @@ class HandleCollisionsAction(Action):
                 bullet.remove_from_sprite_lists()
 
         #This code is for the boss's bullets to hit the player
-        enemy_bullet_list.update()
-        for bullet in enemy_bullet_list:
-            hit_list_2 = arcade.check_for_collision_with_list(bullet, player_sprite)
-            if len(hit_list_2) > 0:
+        if move_boss:
+            enemy_bullet_list.update()
+            hit_list_2 = arcade.check_for_collision_with_list(player_sprite, enemy_bullet_list)
+            for bullet in hit_list_2:
                 bullet.remove_from_sprite_lists()
             
-            if player_sprite.cur_health <= 0:
-                #insert code for death/end game
-                pass
-            else:
-                #insert sound for taking a hit
-                pass
+        #     if player_sprite.cur_health <= 0:
+        #         #insert code for death/end game
+        #         pass
+        #     else:
+        #         #insert sound for taking a hit
+        #         pass
             
-            if bullet.bottom < constants.SCREEN_HEIGHT:
-                bullet.remove_from_sprite_lists()
+        #     if bullet.bottom < constants.SCREEN_HEIGHT:
+        #         bullet.remove_from_sprite_lists()
         
