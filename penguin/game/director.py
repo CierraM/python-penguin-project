@@ -1,4 +1,5 @@
 # from pyglet.libs.x11.xlib import CapNotLast
+from pyglet.window.key import S
 from game import constants
 from game.control_actors_action import ControlActorsAction
 from game.draw_actors_action import DrawActorsAction
@@ -128,7 +129,32 @@ class Director(arcade.Window):
         self._cue_action("input")
         self._cue_action("update")
 
-        self.scroll()
+        if self.rooms[self.current_room].size == 'big':
+
+            if self.player_sprite.center_x == 0:
+                left = 0
+            else:
+                left = self.rooms[self.current_room].width - constants.SCREEN_WIDTH
+
+            if self.player_sprite.center_x == self.rooms[self.current_room].width:
+                right = self.rooms[self.current_room].width
+            else:
+                right = constants.SCREEN_WIDTH
+
+            if self.player_sprite.center_y == self.rooms[self.current_room].height:
+                top = self.rooms[self.current_room].height
+            else:
+                top = constants.SCREEN_HEIGHT
+
+            if self.player_sprite.center_y == 0:
+                bottom = 0
+            else:
+                bottom = self.rooms[self.current_room].height - constants.SCREEN_HEIGHT
+
+            arcade.set_viewport(left, right, bottom, top)
+            self.scroll()
+        else:
+            arcade.set_viewport(0, self.rooms[self.current_room].width, 0, self.rooms[self.current_room].height)
         
 
 
@@ -192,11 +218,6 @@ class Director(arcade.Window):
         self.current_room = self.all_rooms.current_room
         self._cast.append(self.rooms[self.current_room].wall_list)
 
-        if self.rooms[self.current_room].size == "small":
-            self.top = 0
-            self.bottom = 0
-            # self.right = 0
-            # self.left = 0
             
         if new == 8:
             self.player_list.append(self.boss_sprite)
