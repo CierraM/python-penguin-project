@@ -12,9 +12,10 @@ class HandleCollisionsAction(Action):
         Controller
     """
 
-    def __init__(self, director):
+    def __init__(self, director, game_over_view):
         self.director = director
         self.sounds = Sounds()
+        self.game_over = game_over_view
 
     def execute(self, cast):
         self.director.physics_engine.update()
@@ -137,6 +138,9 @@ class HandleCollisionsAction(Action):
                 if player_sprite.cur_health <= 0:
                     #Dead
                     self.sounds.play_sound("player-death")
+                    view = self.game_over
+                    self.director.window.show_view(view)
+
                 else:
                     #Not dead
                     self.sounds.play_sound("player-hit")

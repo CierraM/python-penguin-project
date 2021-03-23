@@ -11,8 +11,64 @@ from game.sounds import Sounds
 import random
 from game.rooms import Rooms
 
+class IntroView(arcade.View):
+    """View to intro the game"""
 
-class Director(arcade.Window):
+    def __init__(self):
+        """This will run once the view is set"""
+        super().__init__()
+        self.texture = arcade.load_texture("penguin/game/assets/graphics/game_start.png")
+
+        # arcade.set_background_color(arcade.color.BUBBLES)
+
+        #Reset the viewport, necessary if we have a scrolling game and we need
+        #to reset the viewport back to the start so we can see what we draw
+        arcade.set_viewport(0, constants.SCREEN_WIDTH - 1, 0, constants.SCREEN_HEIGHT - 1)
+
+    def on_draw(self):
+        """Draw this view"""
+        arcade.start_render()
+        self.texture.draw_sized(constants.SCREEN_WIDTH / 2, constants.SCREEN_HEIGHT / 2, constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT)
+
+    def on_key_press(self, symbol, modifiers):
+        self._symbol = symbol
+        self._modifiers = modifiers
+
+        if self._symbol == arcade.key.SPACE:
+            game_view = DirectorView()
+            game_view.setup()
+            self.window.show_view(game_view)
+
+class GameOverView(arcade.View):
+    """View to show when game is over"""
+
+    def __init__(self):
+        """This will run once the view is set"""
+        super().__init__()
+        self.texture = arcade.load_texture("penguin/game/assets/graphics/end.png")
+
+        # arcade.set_background_color(arcade.color.BLACK)
+
+        #Reset the viewport, necessary if we have a scrolling game and we need
+        #to reset the viewport back to the start so we can see what we draw
+        arcade.set_viewport(0, constants.SCREEN_WIDTH - 1, 0, constants.SCREEN_HEIGHT - 1)
+
+    def on_draw(self):
+        """Draw this view"""
+        arcade.start_render()
+        self.texture.draw_sized(constants.SCREEN_WIDTH / 2, constants.SCREEN_HEIGHT / 2, constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT)
+
+    def on_key_press(self, symbol, modifiers):
+        self._symbol = symbol
+        self._modifiers = modifiers
+
+        if self._symbol == arcade.key.SPACE:
+            game_view = DirectorView()
+            game_view.setup()
+            self.window.show_view(game_view)
+
+
+class DirectorView(arcade.View):
     """A code template for a person who directs the game. The responsibility of 
     this class of objects is to control the sequence of play.
     
@@ -24,7 +80,7 @@ class Director(arcade.Window):
         _script (dictionary): The game actions {key: tag, value: object}
     """
 
-    def __init__(self, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE):
+    def __init__(self):
         """The class constructor.
         
         Args:
@@ -34,12 +90,12 @@ class Director(arcade.Window):
         
         
         # Setup the window
-        super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
+        super().__init__()
         arcade.set_background_color(arcade.color.BUBBLES)
-        self.set_update_rate(1/30)
+        # self.set_update_rate(1/30)
         self.view_bottom = 0
         self.view_left = 0
-        self.setup()
+        # self.setup()
         
 
         
@@ -102,8 +158,8 @@ class Director(arcade.Window):
 
         # output_service.draw_actors(cast["avatar"])
         control_actors_action = ControlActorsAction(self.input_service)
-        
-        handle_collisions_action = HandleCollisionsAction(self)
+        self.game_over = GameOverView()
+        handle_collisions_action = HandleCollisionsAction(self, self.game_over)
         draw_actors_action = DrawActorsAction()
 
         self._script["input"] =  [control_actors_action]
