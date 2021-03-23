@@ -11,6 +11,7 @@ class Rooms:
         room = Room()
         room.width = 2368
         room.height = 1344
+        room.size = 'big'
         map_name = "penguin/game/assets/maps/room_1.tmx"
         objects_layer_name = "Object Layer 1"
         background_layer_name = "background_color"
@@ -27,6 +28,7 @@ class Rooms:
         room = Room()
         room.width = 2368
         room.height = 1344
+        room.size = 'small'
         map_name = "penguin/game/assets/maps/room_1.tmx"
         objects_layer_name = "Object Layer 1"
         background_layer_name = "background_color"
@@ -43,6 +45,7 @@ class Rooms:
         room = Room()
         room.width = 1184
         room.height = 672
+        room.size = 'small'
         map_name = "penguin/game/assets/maps/room_3.tmx"
         objects_layer_name = "walls"
         background_layer_name = "background"
@@ -61,6 +64,7 @@ class Rooms:
         room = Room()
         room.width = 1184
         room.height = 672
+        room.size = 'big'
         map_name = "penguin/game/assets/maps/room_1.tmx"
         objects_layer_name = "Object Layer 1"
         background_layer_name = "background_color"
@@ -77,6 +81,7 @@ class Rooms:
         room = Room()
         room.width = 2368
         room.height = 1344
+        room.size = 'small'
         map_name = "penguin/game/assets/maps/room_1.tmx"
         objects_layer_name = "Object Layer 1"
         background_layer_name = "background_color"
@@ -93,6 +98,7 @@ class Rooms:
         room = Room()
         room.width = 2368
         room.height = 1344
+        room.size = 'small'
         map_name = "penguin/game/assets/maps/room_1.tmx"
         objects_layer_name = "Object Layer 1"
         background_layer_name = "background_color"
@@ -109,6 +115,7 @@ class Rooms:
         room = Room()
         room.width = 2368
         room.height = 1344
+        room.size = 'big'
         map_name = "penguin/game/assets/maps/room_1.tmx"
         objects_layer_name = "Object Layer 1"
         background_layer_name = "background_color"
@@ -125,6 +132,7 @@ class Rooms:
         room = Room()
         room.width = 1184
         room.height = 672
+        room.size = 'small'
         map_name = "penguin/game/assets/maps/room_8.tmx"
         objects_layer_name = "walls"
         background_layer_name = "background"
@@ -141,6 +149,7 @@ class Rooms:
         room = Room()
         room.width = 2368
         room.height = 1344
+        room.size = 'big'
         map_name = "penguin/game/assets/maps/room_1.tmx"
         objects_layer_name = "Object Layer 1"
         background_layer_name = "background_color"
