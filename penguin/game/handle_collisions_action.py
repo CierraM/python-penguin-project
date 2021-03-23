@@ -90,12 +90,118 @@ class HandleCollisionsAction(Action):
         #Go from room 3 to room 8
         elif player_sprite.center_y > self.director.rooms[self.director.current_room].height and self.director.current_room == 2:
             self.director.update_room(3, 8)
+            move_boss = True
+            player_sprite.center_x = self.director.rooms[self.director.current_room].width / 2
+            player_sprite.center_y = 0
+            for follower in follower_list:
+                follower.center_x = self.director.rooms[self.director.current_room].width / 2
+                follower.center_y = 0
+
+        # Go from room 1 to room 6
+        elif player_sprite.center_y < 0 and self.director.current_room == 0:
+            self.director.update_room(1, 6)
+            move_boss = False
+            player_sprite.center_x = self.director.rooms[self.director.current_room].width / 2
+            player_sprite.center_y = self.director.rooms[self.director.current_room].height
+            for follower in follower_list:
+                follower.center_x = self.director.rooms[self.director.current_room].width / 2
+                follower.center_y = self.director.rooms[self.director.current_room].height
+
+        #Go from room 6 to room 1
+        elif player_sprite.center_y > self.director.rooms[self.director.current_room].height and self.director.current_room == 5:
+            self.director.update_room(6, 1)
             move_boss = False
             player_sprite.center_x = self.director.rooms[self.director.current_room].width / 2
             player_sprite.center_y = 0
             for follower in follower_list:
                 follower.center_x = self.director.rooms[self.director.current_room].width / 2
                 follower.center_y = 0
+
+        #Go from room 3 to room 4
+        if player_sprite.center_x < 0 and self.director.current_room == 2:
+            self.director.update_room(3, 4)
+            move_boss = False
+            player_sprite.center_x = self.director.rooms[self.director.current_room].width
+            player_sprite.center_y = self.director.rooms[self.director.current_room].height / 2
+            for follower in follower_list:
+                follower.center_x = self.director.rooms[self.director.current_room].width
+                follower.center_y = self.director.rooms[self.director.current_room].height / 2
+    
+        #Go from room 4 to room 3
+        if player_sprite.center_x > self.director.rooms[self.director.current_room].width and self.director.current_room == 3:
+            self.director.update_room(4, 3)
+            move_boss = False
+            player_sprite.center_x = 0
+            player_sprite.center_y = self.director.rooms[self.director.current_room].height / 2
+            for follower in follower_list:
+                follower.center_x = 0
+                follower.center_y = self.director.rooms[self.director.current_room].height / 2
+
+        #Go from room 4 to room 5
+        elif player_sprite.center_y < 0 and self.director.current_room == 3:
+            self.director.update_room(4, 5)
+            move_boss = False
+            player_sprite.center_x = self.director.rooms[self.director.current_room].width / 2
+            player_sprite.center_y = self.director.rooms[self.director.current_room].height
+            for follower in follower_list:
+                follower.center_x = self.director.rooms[self.director.current_room].width / 2
+                follower.center_y = self.director.rooms[self.director.current_room].height
+
+        #Go from room 5 to room 4
+        elif player_sprite.center_y > self.director.rooms[self.director.current_room].height and self.director.current_room == 4:
+            self.director.update_room(5, 4)
+            move_boss = False
+            player_sprite.center_x = self.director.rooms[self.director.current_room].width / 2
+            player_sprite.center_y = 0
+            for follower in follower_list:
+                follower.center_x = self.director.rooms[self.director.current_room].width / 2
+                follower.center_y = 0
+
+        #Go from room 6 to room 7 !!!THIS IS THE CAVE ENTRANCE
+
+
+        #Go from room 7 to room 6
+
+
+        #Go from room 2 to room 9
+        elif player_sprite.center_y > self.director.rooms[self.director.current_room].height and self.director.current_room == 1:
+            self.director.update_room(2, 9)
+            move_boss = False
+            player_sprite.center_x = self.director.rooms[self.director.current_room].width / 2
+            player_sprite.center_y = 0
+            for follower in follower_list:
+                follower.center_x = self.director.rooms[self.director.current_room].width / 2
+                follower.center_y = 0
+
+        #Go from room 9 to room 2
+        elif player_sprite.center_y < 0 and self.director.current_room == 8:
+            self.director.update_room(9, 2)
+            move_boss = False
+            player_sprite.center_x = self.director.rooms[self.director.current_room].width / 2
+            player_sprite.center_y = self.director.rooms[self.director.current_room].height
+            for follower in follower_list:
+                follower.center_x = self.director.rooms[self.director.current_room].width / 2
+                follower.center_y = self.director.rooms[self.director.current_room].height
+
+        #Go from room 3 to room 9
+        if player_sprite.center_x > self.director.rooms[self.director.current_room].width and self.director.current_room == 2:
+            self.director.update_room(3, 9)
+            move_boss = False
+            player_sprite.center_x = 0
+            player_sprite.center_y = self.director.rooms[self.director.current_room].height / 2
+            for follower in follower_list:
+                follower.center_x = 0
+                follower.center_y = self.director.rooms[self.director.current_room].height / 2
+
+        #Go from room 9 to room 3
+        if player_sprite.center_x < 0 and self.director.current_room == 8:
+            self.director.update_room(9, 3)
+            move_boss = False
+            player_sprite.center_x = self.director.rooms[self.director.current_room].width
+            player_sprite.center_y = self.director.rooms[self.director.current_room].height / 2
+            for follower in follower_list:
+                follower.center_x = self.director.rooms[self.director.current_room].width
+                follower.center_y = self.director.rooms[self.director.current_room].height / 2
 
         # self.following = arcade.Sprite("penguin/game/assets/graphics/followerPenguin.png", .15)
         # self.following.center_x = 20 + (constants.SCREEN_WIDTH / 2) 
