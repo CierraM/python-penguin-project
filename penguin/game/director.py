@@ -48,8 +48,9 @@ class Director(arcade.Window):
 
         
         self.physics_engine = None
-        self.sounds = Sounds()
-        # self.sounds.play_sound("main_1")
+        self.sounds = Sounds() #For sound effects
+        self.soundtracks = Sounds() #For music
+        self.soundtracks.play_sound("main_theme")
 
         # Keep track of scrolling
         self.view_bottom =704
@@ -216,12 +217,14 @@ class Director(arcade.Window):
         self._cast.remove(self.rooms[prev-1].wall_list)
         self.all_rooms.current_room = new-1
         self.current_room = self.all_rooms.current_room
+        
         self._cast.append(self.rooms[self.current_room].wall_list)
+        if not (self.rooms[self.current_room].soundtrack == self.soundtracks.get_current_sound()):
+            self.soundtracks.stop_sound(self.soundtracks.get_current_sound())
+            self.soundtracks.play_sound(self.rooms[self.current_room].soundtrack)
 
-            
         if new == 8:
             self.player_list.append(self.boss_sprite)
-            # self.sounds.play_sound("boss")
 
         elif self.boss_sprite in self.player_list:
             self.player_list.remove(self.boss_sprite)
