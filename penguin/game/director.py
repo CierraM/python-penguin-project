@@ -198,7 +198,7 @@ class Director(arcade.Window):
         room = self.all_rooms.setup_room_5()
         self.rooms.append(room)
         room = self.all_rooms.setup_room_6()
-        self.rooms.append(room)
+        self.rooms.append(room)   
         room = self.all_rooms.setup_room_7()
         self.rooms.append(room)
         room = self.all_rooms.setup_room_8()

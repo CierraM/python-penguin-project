@@ -24,14 +24,14 @@ class Rooms:
 
         return room
     
-    def setup_room_2(self): # placeholder room
+    def setup_room_2(self):
         room = Room()
-        room.width = 2368
-        room.height = 1344
+        room.width = 1184
+        room.height = 672
         room.size = 'small'
-        map_name = "penguin/game/assets/maps/room_1.tmx"
-        objects_layer_name = "Object Layer 1"
-        background_layer_name = "background_color"
+        map_name = "penguin/game/assets/maps/room_2.tmx"
+        objects_layer_name = "walls"
+        background_layer_name = "background"
 
         my_map = arcade.tilemap.read_tmx(map_name)
 
@@ -77,14 +77,14 @@ class Rooms:
 
         return room
 
-    def setup_room_5(self): # placeholder room
+    def setup_room_5(self): 
         room = Room()
-        room.width = 2368
-        room.height = 1344
+        room.width = 1184
+        room.height = 672
         room.size = 'small'
-        map_name = "penguin/game/assets/maps/room_1.tmx"
-        objects_layer_name = "Object Layer 1"
-        background_layer_name = "background_color"
+        map_name = "penguin/game/assets/maps/room_5.tmx"
+        objects_layer_name = "walls"
+        background_layer_name = "background"
 
         my_map = arcade.tilemap.read_tmx(map_name)
 
@@ -94,14 +94,14 @@ class Rooms:
 
         return room
 
-    def setup_room_6(self): # placeholder room
+    def setup_room_6(self):
         room = Room()
-        room.width = 2368
-        room.height = 1344
+        room.width = 1184
+        room.height = 672
         room.size = 'small'
-        map_name = "penguin/game/assets/maps/room_1.tmx"
-        objects_layer_name = "Object Layer 1"
-        background_layer_name = "background_color"
+        map_name = "penguin/game/assets/maps/room_6.tmx"
+        objects_layer_name = "walls"
+        background_layer_name = "background"
 
         my_map = arcade.tilemap.read_tmx(map_name)
 
