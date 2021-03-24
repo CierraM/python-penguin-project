@@ -213,6 +213,7 @@ class Director(arcade.Window):
         
 
     def update_room(self, prev, new):
+    
         self.physics_engine.update()
         self._cast.remove(self.rooms[prev-1].wall_list)
         self.all_rooms.current_room = new-1

@@ -122,14 +122,14 @@ class HandleCollisionsAction(Action):
         if player_sprite.center_x < 0 and self.director.current_room == 2:
             self.director.update_room(3, 4)
             move_boss = False
-            player_sprite.center_x = self.director.rooms[self.director.current_room].width
-            player_sprite.center_y = self.director.rooms[self.director.current_room].height / 2
+            player_sprite.center_x = self.director.rooms[self.director.current_room].width *1.5
+            player_sprite.center_y = 960
             for follower in follower_list:
-                follower.center_x = self.director.rooms[self.director.current_room].width
-                follower.center_y = self.director.rooms[self.director.current_room].height / 2
+                follower.center_x = self.director.rooms[self.director.current_room].width *1.5
+                follower.center_y = 960
     
         #Go from room 4 to room 3
-        if player_sprite.center_x > self.director.rooms[self.director.current_room].width and self.director.current_room == 3:
+        if player_sprite.center_x > self.director.rooms[self.director.current_room].width *1.5 and self.director.current_room == 3:
             self.director.update_room(4, 3)
             move_boss = False
             player_sprite.center_x = 0
@@ -152,10 +152,10 @@ class HandleCollisionsAction(Action):
         elif player_sprite.center_y > self.director.rooms[self.director.current_room].height and self.director.current_room == 4:
             self.director.update_room(5, 4)
             move_boss = False
-            player_sprite.center_x = self.director.rooms[self.director.current_room].width / 2
+            player_sprite.center_x = 1450
             player_sprite.center_y = 0
             for follower in follower_list:
-                follower.center_x = self.director.rooms[self.director.current_room].width / 2
+                follower.center_x = 1450
                 follower.center_y = 0
 
         #Go from room 6 to room 7 !!!THIS IS THE CAVE ENTRANCE
