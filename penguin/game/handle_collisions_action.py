@@ -63,6 +63,7 @@ class HandleCollisionsAction(Action):
             self.director.update_room(2, 1)
             move_boss = False
             player_sprite.center_x = self.director.rooms[self.director.current_room].width
+            player_sprite.center_y = self.director.rooms[self.director.current_room].height /2
             for follower in follower_list:
                 follower.center_x = self.director.rooms[self.director.current_room].width
         
@@ -160,7 +161,7 @@ class HandleCollisionsAction(Action):
         #Go from room 6 to room 7 !!!THIS IS THE CAVE ENTRANCE
 
 
-        #Go from room 7 to room 6
+        #Go from room 7 to room 6d
 
 
         #Go from room 2 to room 9
