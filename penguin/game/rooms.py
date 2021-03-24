@@ -12,6 +12,7 @@ class Rooms:
         room.width = 2368
         room.height = 1344
         room.size = 'big'
+        room.soundtrack = "main_theme"
         map_name = "penguin/game/assets/maps/room_1.tmx"
         objects_layer_name = "Object Layer 1"
         background_layer_name = "background_color"
@@ -29,6 +30,7 @@ class Rooms:
         room.width = 1184
         room.height = 672
         room.size = 'small'
+        room.soundtrack = "main_theme"
         map_name = "penguin/game/assets/maps/room_2.tmx"
         objects_layer_name = "walls"
         background_layer_name = "background"
@@ -46,6 +48,7 @@ class Rooms:
         room.width = 1184
         room.height = 672
         room.size = 'small'
+        room.soundtrack = "main_theme"
         map_name = "penguin/game/assets/maps/room_3.tmx"
         objects_layer_name = "walls"
         background_layer_name = "background"
@@ -60,20 +63,21 @@ class Rooms:
 
         return room
 
-    def setup_room_4(self): # placeholder room
+    def setup_room_4(self): 
         room = Room()
-        room.width = 1184
-        room.height = 672
+        room.width = 2368
+        room.height = 1344
         room.size = 'big'
-        map_name = "penguin/game/assets/maps/room_1.tmx"
-        objects_layer_name = "Object Layer 1"
-        background_layer_name = "background_color"
+        room.soundtrack = "main_theme"
+        map_name = "penguin/game/assets/maps/room_4.tmx"
+        objects_layer_name = "walls"
+        background_layer_name = "background"
 
         my_map = arcade.tilemap.read_tmx(map_name)
 
-        room.wall_list = arcade.tilemap.process_layer(map_object=my_map, layer_name=objects_layer_name, scaling=constants.TILE_SCALING, use_spatial_hash=True)
+        room.wall_list = arcade.tilemap.process_layer(map_object=my_map, layer_name=objects_layer_name, scaling=constants.TILE_SCALING*1.5, use_spatial_hash=True)
 
-        room.background = arcade.tilemap.process_layer(map_object=my_map, layer_name=background_layer_name, scaling=constants.TILE_SCALING, use_spatial_hash=True)
+        room.background = arcade.tilemap.process_layer(map_object=my_map, layer_name=background_layer_name, scaling=constants.TILE_SCALING*1.5, use_spatial_hash=True)
 
         return room
 
@@ -82,6 +86,7 @@ class Rooms:
         room.width = 1184
         room.height = 672
         room.size = 'small'
+        room.soundtrack = "main_theme"
         map_name = "penguin/game/assets/maps/room_5.tmx"
         objects_layer_name = "walls"
         background_layer_name = "background"
@@ -99,6 +104,7 @@ class Rooms:
         room.width = 1184
         room.height = 672
         room.size = 'small'
+        room.soundtrack = "main_theme"
         map_name = "penguin/game/assets/maps/room_6.tmx"
         objects_layer_name = "walls"
         background_layer_name = "background"
@@ -116,6 +122,7 @@ class Rooms:
         room.width = 2368
         room.height = 1344
         room.size = 'big'
+        room.soundtrack = "cave_theme"
         map_name = "penguin/game/assets/maps/room_1.tmx"
         objects_layer_name = "Object Layer 1"
         background_layer_name = "background_color"
@@ -133,6 +140,7 @@ class Rooms:
         room.width = 1184
         room.height = 672
         room.size = 'small'
+        room.soundtrack = "boss_theme"
         map_name = "penguin/game/assets/maps/room_8.tmx"
         objects_layer_name = "walls"
         background_layer_name = "background"
@@ -150,6 +158,8 @@ class Rooms:
         room.width = 2368
         room.height = 1344
         room.size = 'big'
+        room.soundtrack = "village_theme"
+        
         map_name = "penguin/game/assets/maps/room_1.tmx"
         objects_layer_name = "Object Layer 1"
         background_layer_name = "background_color"
