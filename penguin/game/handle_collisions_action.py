@@ -161,10 +161,24 @@ class HandleCollisionsAction(Action):
                 follower.center_y = 0
 
         #Go from room 6 to room 7 !!!THIS IS THE CAVE ENTRANCE
-
+        elif (player_sprite.center_x <= 620 and player_sprite.center_x >= 603) and (player_sprite.center_y < 400) and self.director.current_room == 5:
+            self.director.update_room(6, 7)
+            move_boss = False
+            player_sprite.center_x = 1268
+            player_sprite.center_y = 1220
+            for follower in follower_list:
+                follower.center_x = 1268
+                follower.center_y = 1220
 
         #Go from room 7 to room 6d
-
+        elif player_sprite.center_y > self.director.rooms[self.director.current_room].height -50 and self.director.current_room == 6:
+            self.director.update_room(7, 6)
+            move_boss = False
+            player_sprite.center_x = 615
+            player_sprite.center_y = 402
+            for follower in follower_list:
+                follower.center_x = 615
+                follower.center_y = 402
 
         #Go from room 2 to room 9
         elif player_sprite.center_y > self.director.rooms[self.director.current_room].height and self.director.current_room == 1:
@@ -187,7 +201,7 @@ class HandleCollisionsAction(Action):
                 follower.center_y = self.director.rooms[self.director.current_room].height
 
         #Go from room 3 to room 9
-        if player_sprite.center_x > self.director.rooms[self.director.current_room].width and self.director.current_room == 2:
+        elif player_sprite.center_x > self.director.rooms[self.director.current_room].width and self.director.current_room == 2:
             self.director.update_room(3, 9)
             move_boss = False
             player_sprite.center_x = 0
@@ -197,7 +211,7 @@ class HandleCollisionsAction(Action):
                 follower.center_y = self.director.rooms[self.director.current_room].height / 2
 
         #Go from room 9 to room 3
-        if player_sprite.center_x < 0 and self.director.current_room == 8:
+        elif player_sprite.center_x < 0 and self.director.current_room == 8:
             self.director.update_room(9, 3)
             move_boss = False
             player_sprite.center_x = self.director.rooms[self.director.current_room].width
@@ -211,7 +225,7 @@ class HandleCollisionsAction(Action):
         # self.following.center_y = 20 + (constants.SCREEN_HEIGHT / 2)
         # self.following_list.append(self.following)
 
-
+        print(player_sprite.center_x, player_sprite.center_y)
         #This code is created for the player's bullets to hit the boss
         player_bullet_list.update()
         for bullet in player_bullet_list:
@@ -284,3 +298,4 @@ class HandleCollisionsAction(Action):
                 if bullet.bottom > constants.SCREEN_HEIGHT:
                     bullet.remove_from_sprite_lists()
     
+            

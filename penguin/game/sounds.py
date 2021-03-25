@@ -13,14 +13,15 @@ class Sounds:
         self.sounds = {"main_theme":"penguin/game/assets/sounds/CrystalCaverns.wav", 
                         "intro_screen":"penguin/game/assets/sounds/CrystalCaverns.wav", 
                        "village_theme":"penguin/game/assets/sounds/SleighRide.wav",
-                       "cave_theme": "penguin/game/assets/sounds/SleighRide.wav",
+                       "cave_theme": "penguin/game/assets/sounds/Cave.wav",
                        "boss_theme":"penguin/game/assets/sounds/IceBlizzard.wav",
+                       "maze_theme": "penguin/game/assets/sounds/Maze.wav",
                        "end_screen":"penguin/game/assets/sounds/IceCream.wav",
                        "penguin-hit":"penguin/game/assets/sounds/hit.wav",
-                       "boss-hit":"penguin/game/assets/sounds/pop.wav",
+                       "boss-hit":"penguin/game/assets/sounds/PSnowball.wav",
                        "boss-death":"penguin/game/assets/sounds/roar.wav",
                        "player-death":"penguin/game/assets/sounds/recharage.wav",
-                       "player-hit":"penguin/game/assets/sounds/sweep.wav",
+                       "player-hit":"penguin/game/assets/sounds/snowballimpact.wav",
                        "zip-sound":"penguin/game/assets/sounds/mixkit-fast-magic-game-spell-883.wav"}
     
     def play_sound(self, sound):
