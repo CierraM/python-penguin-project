@@ -67,6 +67,7 @@ class Director(arcade.Window):
         self.following_list = arcade.SpriteList() # penguins that are following you
         self.player_bullet_list = arcade.SpriteList() # bullets the player shoots
         self.enemy_bullet_list = arcade.SpriteList() # bullets the boss shoots
+        self.follower_bullet_list = arcade.SpriteList()
 
         # Also commented this out until we finish the following_list
         #self.following_list = arcade.SpriteList() # penguins that are actually following you
@@ -100,6 +101,7 @@ class Director(arcade.Window):
         self._cast.append(self.following_list)
         self._cast.append(self.player_bullet_list)
         self._cast.append(self.enemy_bullet_list)
+        self._cast.append(self.follower_bullet_list)
 
         # Add room setup to the cast also
         self.setup_rooms()
@@ -109,7 +111,7 @@ class Director(arcade.Window):
         self.input_service = InputService()
 
         # output_service.draw_actors(cast["avatar"])
-        control_actors_action = ControlActorsAction(self.input_service)
+        control_actors_action = ControlActorsAction(self.input_service, self)
         
         handle_collisions_action = HandleCollisionsAction(self)
         draw_actors_action = DrawActorsAction()
