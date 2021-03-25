@@ -20,7 +20,8 @@ class Sounds:
                        "boss-hit":"penguin/game/assets/sounds/pop.wav",
                        "boss-death":"penguin/game/assets/sounds/roar.wav",
                        "player-death":"penguin/game/assets/sounds/recharage.wav",
-                       "player-hit":"penguin/game/assets/sounds/sweep.wav"}
+                       "player-hit":"penguin/game/assets/sounds/sweep.wav",
+                       "zip-sound":"penguin/game/assets/sounds/mixkit-fast-magic-game-spell-883.wav"}
     
     def play_sound(self, sound):
         self.current_sound = sound
