@@ -28,10 +28,12 @@ class HandleCollisionsAction(Action):
         small_penguin_list = cast[1]
         small_penguin_list.update()
         follower_list = cast[2]
+        #move boss is true when you're in the boss room
         move_boss = len(player_sprite_list) > 1
         if move_boss:
             boss_sprite = player_sprite_list[1]
         enemy_bullet_list = cast[4]
+        follower_bullet_list = cast[5]
         
         
         #Collision handling for big penguin with little penguin
@@ -254,7 +256,31 @@ class HandleCollisionsAction(Action):
                 # else:
                 #     #insert sound for taking a hit
                 #     pass
-                
+            for bullet in enemy_bullet_list:
                 if bullet.bottom < 0:
                     bullet.remove_from_sprite_lists()
         
+        move_boss = len(player_sprite_list) > 1
+        follower_bullet_list.update()
+        if move_boss: 
+            boss_sprite = player_sprite_list[1]
+            hit_list_1 = arcade.check_for_collision_with_list(boss_sprite, follower_bullet_list)
+            for bullet in hit_list_1:
+                if len(hit_list_1) > 0:
+                    bullet.remove_from_sprite_lists()
+                for hit in hit_list_1:
+                    #remove 1 point of health per hit
+                    boss_sprite.cur_health -= 1
+
+                    if boss_sprite.cur_health <= 0:
+                        #Dead
+                        self.sounds.play_sound("boss-death")
+                        boss_sprite.remove_from_sprite_lists()
+                        move_boss = False 
+                    else:
+                        #Not dead
+                        self.sounds.play_sound("boss-hit")
+            for bullet in follower_bullet_list:
+                if bullet.bottom > constants.SCREEN_HEIGHT:
+                    bullet.remove_from_sprite_lists()
+    
