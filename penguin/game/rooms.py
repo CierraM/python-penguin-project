@@ -153,16 +153,16 @@ class Rooms:
 
         return room
 
-    def setup_room_9(self): # placeholder room
+    def setup_room_9(self):
         room = Room()
         room.width = 2368
         room.height = 1344
         room.size = 'big'
         room.soundtrack = "village_theme"
         
-        map_name = "penguin/game/assets/maps/room_1.tmx"
-        objects_layer_name = "Object Layer 1"
-        background_layer_name = "background_color"
+        map_name = "penguin/game/assets/maps/room_9.tmx"
+        objects_layer_name = "walls"
+        background_layer_name = "background"
 
         my_map = arcade.tilemap.read_tmx(map_name)
 
