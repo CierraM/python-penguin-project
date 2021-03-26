@@ -3,6 +3,7 @@ import arcade
 from game import constants
 from game.action import Action
 from game.sounds import Sounds
+import time
 
 
 class HandleCollisionsAction(Action):
@@ -12,9 +13,11 @@ class HandleCollisionsAction(Action):
         Controller
     """
 
-    def __init__(self, director):
+    def __init__(self, director, game_over_view, soundtracks):
         self.director = director
         self.sounds = Sounds()
+        self.soundtracks = soundtracks
+        self.game_over = game_over_view
 
     def execute(self, cast):
         self.director.physics_engine.update()
@@ -259,7 +262,13 @@ class HandleCollisionsAction(Action):
 
                 if player_sprite.cur_health <= 0:
                     #Dead
+                    self.soundtracks.stop_sound(self.soundtracks.get_current_sound())
                     self.sounds.play_sound("player-death")
+                    time.sleep(0.3)
+                    view = self.game_over
+                    view.setup()
+                    self.director.window.show_view(view)
+
                 else:
                     #Not dead
                     self.sounds.play_sound("player-hit")

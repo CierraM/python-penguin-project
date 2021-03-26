@@ -11,9 +11,84 @@ from game import constants
 from game.sounds import Sounds
 import random
 from game.rooms import Rooms
+import time
+
+class IntroView(arcade.View):
+    """View to intro the game"""
+
+    def __init__(self):
+        """This will run once the view is set"""
+        super().__init__()
+        self.texture = arcade.load_texture("penguin/game/assets/graphics/game_start.png")
+
+        # arcade.set_background_color(arcade.color.BUBBLES)
+
+        #Reset the viewport, necessary if we have a scrolling game and we need
+        #to reset the viewport back to the start so we can see what we draw
+        arcade.set_viewport(0, constants.SCREEN_WIDTH - 1, 0, constants.SCREEN_HEIGHT - 1)
+
+    def setup(self):
+        """Add Music"""
+        self.sounds = Sounds()
+        self.soundtracks = Sounds() #For music
+        self.soundtracks.play_sound("intro_screen")
+
+    def on_draw(self):
+        """Draw this view"""
+        arcade.start_render()
+        self.texture.draw_sized(constants.SCREEN_WIDTH / 2, constants.SCREEN_HEIGHT / 2, constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT)
+
+    def on_key_press(self, symbol, modifiers):
+        self._symbol = symbol
+        self._modifiers = modifiers
+
+        if self._symbol == arcade.key.SPACE:
+            self.soundtracks.stop_sound(self.soundtracks.get_current_sound())
+            self.sounds.play_sound("game_start")
+            game_view = DirectorView()
+            game_view.setup()
+            self.window.show_view(game_view)
+
+class GameOverView(arcade.View):
+    """View to show when game is over"""
+
+    def __init__(self):
+        """This will run once the view is set"""
+        super().__init__()
+        self.texture = arcade.load_texture("penguin/game/assets/graphics/end.png")
+
+        # arcade.set_background_color(arcade.color.BLACK)
+
+        #Reset the viewport, necessary if we have a scrolling game and we need
+        #to reset the viewport back to the start so we can see what we draw
+        arcade.set_viewport(0, constants.SCREEN_WIDTH - 1, 0, constants.SCREEN_HEIGHT - 1)
+
+    def setup(self):
+        """Add Music"""
+        self.sounds = Sounds()
+        # self.soundtracks = Sounds() #For music
+        # self.soundtracks.stop_sound(self.soundtracks.get_current_sound())
+        time.sleep(0.1)
+        self.sounds.play_sound("gameover")
+
+    def on_draw(self):
+        """Draw this view"""
+        arcade.start_render()
+        self.texture.draw_sized(constants.SCREEN_WIDTH / 2, constants.SCREEN_HEIGHT / 2, constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT)
+
+    def on_key_press(self, symbol, modifiers):
+        self._symbol = symbol
+        self._modifiers = modifiers
+
+        if self._symbol == arcade.key.SPACE:
+            self.sounds.stop_sound(self.sounds.get_current_sound())
+            self.sounds.play_sound("game_start")
+            game_view = DirectorView()
+            game_view.setup()
+            self.window.show_view(game_view)
 
 
-class Director(arcade.Window):
+class DirectorView(arcade.View):
     """A code template for a person who directs the game. The responsibility of 
     this class of objects is to control the sequence of play.
     
@@ -25,7 +100,7 @@ class Director(arcade.Window):
         _script (dictionary): The game actions {key: tag, value: object}
     """
 
-    def __init__(self, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE):
+    def __init__(self):
         """The class constructor.
         
         Args:
@@ -35,12 +110,12 @@ class Director(arcade.Window):
         
         
         # Setup the window
-        super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
+        super().__init__()
         arcade.set_background_color(arcade.color.BUBBLES)
-        self.set_update_rate(1/30)
+        # self.set_update_rate(1/30)
         self.view_bottom = 0
         self.view_left = 0
-        self.setup()
+        # self.setup()
         
 
         
@@ -50,6 +125,8 @@ class Director(arcade.Window):
         self.physics_engine = None
         self.sounds = Sounds() #For sound effects
         self.soundtracks = Sounds() #For music
+        #To let the game start sound finish, pause for 1.5 seconds
+        time.sleep(1.7)
         self.soundtracks.play_sound("main_theme")
 
         # Keep track of scrolling
@@ -116,8 +193,8 @@ class Director(arcade.Window):
 
         # output_service.draw_actors(cast["avatar"])
         control_actors_action = ControlActorsAction(self.input_service, self)
-        
-        handle_collisions_action = HandleCollisionsAction(self)
+        self.game_over = GameOverView()
+        handle_collisions_action = HandleCollisionsAction(self, self.game_over, self.soundtracks)
         draw_actors_action = DrawActorsAction()
 
         self._script["input"] =  [control_actors_action]
@@ -221,7 +298,7 @@ class Director(arcade.Window):
         
 
     def update_room(self, prev, new):
-        
+
         self.physics_engine.update()
         
 
@@ -234,6 +311,16 @@ class Director(arcade.Window):
             self.soundtracks.stop_sound(self.soundtracks.get_current_sound())
             self.soundtracks.play_sound(self.rooms[self.current_room].soundtrack)
 
+
+
+        
+
+        if new == 8:
+            self.player_list.append(self.boss_sprite)
+            
+        elif self.boss_sprite in self.player_list:
+            self.player_list.remove(self.boss_sprite)
+            
         if new == 7:
             self._cast.append(self.rooms[6].background2)
 
@@ -243,8 +330,6 @@ class Director(arcade.Window):
         if new == 8:
             self.player_list.append(self.boss_sprite)
 
-        elif self.boss_sprite in self.player_list:
-            self.player_list.remove(self.boss_sprite)
 
         self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite, self.rooms[self.current_room].wall_list)
         
