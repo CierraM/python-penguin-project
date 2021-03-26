@@ -167,7 +167,7 @@ class DirectorView(arcade.View):
         self.input_service = InputService()
 
         # output_service.draw_actors(cast["avatar"])
-        control_actors_action = ControlActorsAction(self.input_service)
+        control_actors_action = ControlActorsAction(self.input_service, self)
         self.game_over = GameOverView()
         handle_collisions_action = HandleCollisionsAction(self, self.game_over)
         draw_actors_action = DrawActorsAction()
