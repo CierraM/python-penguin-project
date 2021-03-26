@@ -1,4 +1,5 @@
 # from pyglet.libs.x11.xlib import CapNotLast
+from pyglet.window.key import S
 from game import constants
 from game.control_actors_action import ControlActorsAction
 from game.draw_actors_action import DrawActorsAction
@@ -103,18 +104,26 @@ class DirectorView(arcade.View):
 
         
         self.physics_engine = None
-        self.sounds = Sounds()
-        # self.sounds.play_sound("main_1")
+        self.sounds = Sounds() #For sound effects
+        self.soundtracks = Sounds() #For music
+        self.soundtracks.play_sound("main_theme")
 
         # Keep track of scrolling
-        self.view_bottom = 0
-        self.view_left = 0
+        self.view_bottom =704
+        self.view_left = 1184
+
+        # Use these to tell the game where to start your scroll off?
+        self.top = 350
+        self.right = 600
+        self.bottom = 350
+        self.left = 600
 
         self.player_list = arcade.SpriteList() # you
         self.follower_list = arcade.SpriteList() # penguins that could follow you
         self.following_list = arcade.SpriteList() # penguins that are following you
         self.player_bullet_list = arcade.SpriteList() # bullets the player shoots
         self.enemy_bullet_list = arcade.SpriteList() # bullets the boss shoots
+        self.follower_bullet_list = arcade.SpriteList()
 
         # Also commented this out until we finish the following_list
         #self.following_list = arcade.SpriteList() # penguins that are actually following you
@@ -148,6 +157,7 @@ class DirectorView(arcade.View):
         self._cast.append(self.following_list)
         self._cast.append(self.player_bullet_list)
         self._cast.append(self.enemy_bullet_list)
+        self._cast.append(self.follower_bullet_list)
 
         # Add room setup to the cast also
         self.setup_rooms()
@@ -178,44 +188,33 @@ class DirectorView(arcade.View):
         self._cue_action("input")
         self._cue_action("update")
 
-        # Scrolling
-        changed = False
-        # Scroll left
-        left_boundary = self.view_left + constants.LEFT_VIEWPORT_MARGIN
-        if self.player_sprite.left < left_boundary:
-            self.view_left -= left_boundary - self.player_sprite.left
-            changed = True
+        if self.rooms[self.current_room].size == 'big':
 
-        # Scroll right
-        right_boundary = self.view_left + constants.SCREEN_WIDTH - constants.RIGHT_VIEWPORT_MARGIN
-        if self.player_sprite.right > right_boundary:
-            self.view_left += self.player_sprite.right - right_boundary
-            changed = True
+            if self.player_sprite.center_x == 0:
+                left = 0
+            else:
+                left = self.rooms[self.current_room].width - constants.SCREEN_WIDTH
 
-        # Scroll up
-        top_boundary = self.view_bottom + constants.SCREEN_HEIGHT - constants.TOP_VIEWPORT_MARGIN
-        if self.player_sprite.top > top_boundary:
-            self.view_bottom += self.player_sprite.top - top_boundary
-            changed = True
+            if self.player_sprite.center_x == self.rooms[self.current_room].width:
+                right = self.rooms[self.current_room].width
+            else:
+                right = constants.SCREEN_WIDTH
 
-        # Scroll down
-        bottom_boundary = self.view_bottom + constants.BOTTOM_VIEWPORT_MARGIN
-        if self.player_sprite.bottom < bottom_boundary:
-            self.view_bottom -= bottom_boundary - self.player_sprite.bottom
-            changed = True
+            if self.player_sprite.center_y == self.rooms[self.current_room].height:
+                top = self.rooms[self.current_room].height
+            else:
+                top = constants.SCREEN_HEIGHT
 
-        if changed:
-            # Only scroll to integers. Otherwise we end up with pixels that
-            # don't line up on the screen
-            self.view_bottom = int(self.view_bottom)
-            self.view_left = int(self.view_left)
+            if self.player_sprite.center_y == 0:
+                bottom = 0
+            else:
+                bottom = self.rooms[self.current_room].height - constants.SCREEN_HEIGHT
 
-            # Do the scrolling
-            arcade.set_viewport(self.view_left,
-                                constants.SCREEN_WIDTH + self.view_left,
-                                self.view_bottom,
-                                constants.SCREEN_HEIGHT + self.view_bottom)
-
+            arcade.set_viewport(left, right, bottom, top)
+            self.scroll()
+        else:
+            arcade.set_viewport(0, self.rooms[self.current_room].width, 0, self.rooms[self.current_room].height)
+        
 
 
     def on_draw(self):
@@ -258,7 +257,7 @@ class DirectorView(arcade.View):
         room = self.all_rooms.setup_room_5()
         self.rooms.append(room)
         room = self.all_rooms.setup_room_6()
-        self.rooms.append(room)
+        self.rooms.append(room)   
         room = self.all_rooms.setup_room_7()
         self.rooms.append(room)
         room = self.all_rooms.setup_room_8()
@@ -272,15 +271,62 @@ class DirectorView(arcade.View):
         
 
     def update_room(self, prev, new):
+    
         self.physics_engine.update()
         self._cast.remove(self.rooms[prev-1].wall_list)
         self.all_rooms.current_room = new-1
         self.current_room = self.all_rooms.current_room
+        
         self._cast.append(self.rooms[self.current_room].wall_list)
+        if not (self.rooms[self.current_room].soundtrack == self.soundtracks.get_current_sound()):
+            self.soundtracks.stop_sound(self.soundtracks.get_current_sound())
+            self.soundtracks.play_sound(self.rooms[self.current_room].soundtrack)
+
         if new == 8:
             self.player_list.append(self.boss_sprite)
+
         elif self.boss_sprite in self.player_list:
             self.player_list.remove(self.boss_sprite)
         self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite, self.rooms[self.current_room].wall_list)
         
         
+    def scroll(self):
+        
+        # Scrolling
+        changed = False
+        # Scroll left
+        left_boundary = self.view_left + self.left
+        if self.player_sprite.left < left_boundary:
+            self.view_left -= left_boundary - self.player_sprite.left
+            changed = True
+
+        # Scroll right
+        right_boundary = self.view_left + constants.SCREEN_WIDTH - self.right
+        if self.player_sprite.right > right_boundary:
+            self.view_left += self.player_sprite.right - right_boundary
+            changed = True
+
+        # Scroll up
+        top_boundary = self.view_bottom + constants.SCREEN_HEIGHT - self.top
+
+        if self.player_sprite.top > top_boundary:
+            self.view_bottom += self.player_sprite.top - top_boundary
+            changed = True
+
+        # Scroll down
+        bottom_boundary = self.view_bottom + self.bottom
+        if self.player_sprite.bottom < bottom_boundary:
+            self.view_bottom -= bottom_boundary - self.player_sprite.bottom
+            changed = True
+
+        if changed:
+            # Only scroll to integers. Otherwise we end up with pixels that
+            # don't line up on the screen
+            self.view_bottom = int(self.view_bottom)
+            self.view_left = int(self.view_left)
+
+            # Do the scrolling
+            arcade.set_viewport(self.view_left,
+                                constants.SCREEN_WIDTH + self.view_left,
+                                self.view_bottom,
+                                constants.SCREEN_HEIGHT + self.view_bottom)
