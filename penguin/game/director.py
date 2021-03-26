@@ -277,15 +277,6 @@ class DirectorView(arcade.View):
         
 
     def update_room(self, prev, new):
-        if self.rooms[self.current_room].specialBehavior:
-            self.rooms[self.current_room].specialBehavior(self)
-
-        if new == 9: 
-            self._cast.append(self.npc_list)
-            
-        if prev == 9:
-            self._cast.remove(self.npc_list)
-
 
         self.physics_engine.update()
         
@@ -298,11 +289,13 @@ class DirectorView(arcade.View):
         if not (self.rooms[self.current_room].soundtrack == self.soundtracks.get_current_sound()):
             self.soundtracks.stop_sound(self.soundtracks.get_current_sound())
             self.soundtracks.play_sound(self.rooms[self.current_room].soundtrack)
-
         
 
         if new == 8:
             self.player_list.append(self.boss_sprite)
+            
+        elif self.boss_sprite in self.player_list:
+            self.player_list.remove(self.boss_sprite)
             
         if new == 7:
             self._cast.append(self.rooms[6].background2)
@@ -311,8 +304,6 @@ class DirectorView(arcade.View):
             self._cast.remove(self.rooms[6].background2)
 
 
-        elif self.boss_sprite in self.player_list:
-            self.player_list.remove(self.boss_sprite)
 
         self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite, self.rooms[self.current_room].wall_list)
         
