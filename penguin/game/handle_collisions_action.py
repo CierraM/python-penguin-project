@@ -170,6 +170,17 @@ class HandleCollisionsAction(Action):
                 follower.center_x = 1450
                 follower.center_y = 0
 
+        #Go from room 5 to room 3
+        elif player_sprite.center_x > self.director.rooms[self.director.current_room].width and self.director.current_room == 4:
+            self.director.update_room(5, 3)
+            move_boss = False
+            player_sprite.center_x = self.director.rooms[self.director.current_room].width /2
+            player_sprite.center_y = self.director.rooms[self.director.current_room].height /2
+            for follower in follower_list:
+                follower.center_x = self.director.rooms[self.director.current_room].width /2
+                follower.center_y = self.director.rooms[self.director.current_room].height /2
+            self.director.sounds.play_sound('teleport')
+
         #Go from room 6 to room 7 !!!THIS IS THE CAVE ENTRANCE
         elif (player_sprite.center_x <= 620 and player_sprite.center_x >= 603) and (player_sprite.center_y < 400) and self.director.current_room == 5:
             self.director.update_room(6, 7)
