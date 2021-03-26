@@ -67,7 +67,11 @@ class Director(arcade.Window):
         self.following_list = arcade.SpriteList() # penguins that are following you
         self.player_bullet_list = arcade.SpriteList() # bullets the player shoots
         self.enemy_bullet_list = arcade.SpriteList() # bullets the boss shoots
-        self.follower_bullet_list = arcade.SpriteList()
+        self.follower_bullet_list = arcade.SpriteList() #bullets the follower penguins shoot
+        self.npc_list = arcade.SpriteList() #NPC village penguins
+
+        
+
 
         # Also commented this out until we finish the following_list
         #self.following_list = arcade.SpriteList() # penguins that are actually following you
@@ -86,7 +90,7 @@ class Director(arcade.Window):
         #self.player_list.append(self.boss_sprite)
 
     
-        for x in range(random.randint(1, 10)):      
+        for x in range(random.randint(1, 20)):      
             self.follower = arcade.Sprite("penguin/game/assets/graphics/followerPenguin.png", .15)
             self.follower.center_x = (random.randint(1, constants.SCREEN_WIDTH)) 
             self.follower.center_y = (random.randint(1, constants.SCREEN_HEIGHT))
@@ -165,6 +169,7 @@ class Director(arcade.Window):
         arcade.start_render()
         if self.rooms[self.current_room].background:
             self.rooms[self.current_room].background.draw()
+
         self._cue_action("output")
         # If you want to draw text on the screen put it here
         
@@ -213,10 +218,22 @@ class Director(arcade.Window):
         self._cast.append(self.rooms[self.current_room].wall_list)
         self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite, self.rooms[self.current_room].wall_list)
         
+        
 
     def update_room(self, prev, new):
-    
+        if self.rooms[self.current_room].specialBehavior:
+            self.rooms[self.current_room].specialBehavior(self)
+
+        if new == 9: 
+            self._cast.append(self.npc_list)
+            
+        if prev == 9:
+            self._cast.remove(self.npc_list)
+
+
         self.physics_engine.update()
+        
+
         self._cast.remove(self.rooms[prev-1].wall_list)
         self.all_rooms.current_room = new-1
         self.current_room = self.all_rooms.current_room
@@ -226,13 +243,27 @@ class Director(arcade.Window):
             self.soundtracks.stop_sound(self.soundtracks.get_current_sound())
             self.soundtracks.play_sound(self.rooms[self.current_room].soundtrack)
 
+        
+
         if new == 8:
             self.player_list.append(self.boss_sprite)
+            
+        if new == 7:
+            self._cast.append(self.rooms[6].background2)
+
+        if prev == 7:
+            self._cast.remove(self.rooms[6].background2)
+
 
         elif self.boss_sprite in self.player_list:
             self.player_list.remove(self.boss_sprite)
+
         self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite, self.rooms[self.current_room].wall_list)
         
+        
+        
+    # def boss_room_setup(self):
+
         
     def scroll(self):
         

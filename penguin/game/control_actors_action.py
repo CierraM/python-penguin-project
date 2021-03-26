@@ -87,19 +87,20 @@ class ControlActorsAction(Action):
                 penguin.center_x = penguin_change_x
 
             if abs(player_sprite.center_x - penguin.center_x) > self.max_distance_apart_x:
-                if self.director.current_room != 4:
-                    self.director.sounds.play_sound("zip-sound")
                 if player_sprite.center_x > penguin.center_x:
                     penguin.center_x = player_sprite.center_x + self.follower_offset
                 else: 
                     penguin.center_x = player_sprite.center_x - self.follower_offset 
- 
+            # Keep penguins from crowding player's face
+            if (penguin.right < player_sprite.right and penguin.right > player_sprite.center_x):
+                penguin.right += 16
+            if (penguin.right > player_sprite.left and penguin.right < player_sprite.center_x):
+                penguin.right -= 16
+            
             if penguin_change_y > 0 + 32 and penguin_change_y < room_y - 32: 
                 penguin.center_y = penguin_change_y
 
             if abs(player_sprite.center_y - penguin.center_y) > self.max_distance_apart_y:
-                if self.director.current_room != 4:
-                    self.director.sounds.play_sound("zip-sound")
                 if player_sprite.center_y > penguin.center_y:
                     penguin.center_y = player_sprite.center_y + self.follower_offset
                 else: 

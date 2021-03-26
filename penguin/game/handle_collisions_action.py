@@ -220,12 +220,12 @@ class HandleCollisionsAction(Action):
                 follower.center_x = self.director.rooms[self.director.current_room].width
                 follower.center_y = self.director.rooms[self.director.current_room].height / 2
 
+        # print(player_sprite.center_x, player_sprite.center_y)
         # self.following = arcade.Sprite("penguin/game/assets/graphics/followerPenguin.png", .15)
         # self.following.center_x = 20 + (constants.SCREEN_WIDTH / 2) 
         # self.following.center_y = 20 + (constants.SCREEN_HEIGHT / 2)
         # self.following_list.append(self.following)
 
-        print(player_sprite.center_x, player_sprite.center_y)
         #This code is created for the player's bullets to hit the boss
         player_bullet_list.update()
         for bullet in player_bullet_list:
