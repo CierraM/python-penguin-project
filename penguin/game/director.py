@@ -147,11 +147,6 @@ class DirectorView(arcade.View):
         self.follower_bullet_list = arcade.SpriteList() #bullets the follower penguins shoot
         self.npc_list = arcade.SpriteList() #NPC village penguins
 
-        
-
-
-        # Also commented this out until we finish the following_list
-        #self.following_list = arcade.SpriteList() # penguins that are actually following you
     
         #this is the player sprite
         self.player_sprite = SpriteWithHealth("penguin/game/assets/graphics/penguin.png", .25, 32, 33, -10, 11, 40, 5,  max_health = 3) # this function give the sprite a health bar
@@ -311,12 +306,6 @@ class DirectorView(arcade.View):
             self.soundtracks.stop_sound(self.soundtracks.get_current_sound())
             self.soundtracks.play_sound(self.rooms[self.current_room].soundtrack)
 
-
-
-        
-
-        if new == 8:
-            self.player_list.append(self.boss_sprite)
             
         elif self.boss_sprite in self.player_list:
             self.player_list.remove(self.boss_sprite)
