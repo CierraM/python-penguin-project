@@ -59,6 +59,7 @@ class ControlActorsAction(Action):
         new_bullet = self._input_service.get_create_bullet()
         new_change_x = self._input_service.get_change_x()
         new_change_y = self._input_service.get_change_y()
+        player_sprite.update(new_change_x, new_change_y)
         
         if move_boss:
             enemy_bullet_list = cast[4]
