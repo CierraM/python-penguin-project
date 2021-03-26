@@ -43,7 +43,8 @@ class IntroView(arcade.View):
         self._modifiers = modifiers
 
         if self._symbol == arcade.key.SPACE:
-            self.soundtracks.stop_sound(self.soundtracks.get_current_sound())
+            if self.soundtracks.get_current_sound() != None:
+                self.soundtracks.stop_sound(self.soundtracks.get_current_sound())
             self.sounds.play_sound("game_start")
             game_view = DirectorView()
             game_view.setup()
@@ -161,26 +162,23 @@ class DirectorView(arcade.View):
         self.boss_sprite.center_y = (constants.SCREEN_HEIGHT - 150)
         #self.player_list.append(self.boss_sprite)
 
-    
-        for x in range(random.randint(1, 20)):      
-            self.follower = arcade.Sprite("penguin/game/assets/graphics/followerPenguin.png", .15)
-            self.follower.center_x = (random.randint(1, constants.SCREEN_WIDTH)) 
-            self.follower.center_y = (random.randint(1, constants.SCREEN_HEIGHT))
-            self.follower_list.append(self.follower)
-
-
+        
 
         self._cast = []
         self._cast.append(self.player_list)
         #use player list not player so you can use the list function in the arcade library
-        self._cast.append(self.follower_list)
-        self._cast.append(self.following_list)
+        # self._cast.append(self.follower_list)
+        
         self._cast.append(self.player_bullet_list)
         self._cast.append(self.enemy_bullet_list)
         self._cast.append(self.follower_bullet_list)
-
+        self._cast.append(self.following_list)
         # Add room setup to the cast also
-        self.setup_rooms()
+        self.setup_rooms() # adds followers, then walls
+        #Cast: [player, player bullet, enemy bullet, follower bullet, following list, follower list, walls]
+
+        
+            
         # create the script {key: tag, value: list}
         self._script = {}
 
@@ -208,6 +206,7 @@ class DirectorView(arcade.View):
         self._cue_action("input")
         self._cue_action("update")
 
+        #Handle scrolling and viewport positioning:
         if self.rooms[self.current_room].size == 'big':
 
             if self.player_sprite.center_x == 0:
@@ -287,21 +286,29 @@ class DirectorView(arcade.View):
         self.rooms.append(room)
     
         self.current_room = self.all_rooms.current_room
+        self._cast.append(self.rooms[self.current_room].follower_list)
         self._cast.append(self.rooms[self.current_room].wall_list)
+        
         self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite, self.rooms[self.current_room].wall_list)
         
         
 
     def update_room(self, prev, new):
-
+        
         self.physics_engine.update()
         
 
         self._cast.remove(self.rooms[prev-1].wall_list)
+        self._cast.remove(self.rooms[prev-1].follower_list)
+        # self.rooms[prev-1].follower_num -= num
+
         self.all_rooms.current_room = new-1
         self.current_room = self.all_rooms.current_room
         
+        self._cast.append(self.rooms[self.current_room].follower_list)
         self._cast.append(self.rooms[self.current_room].wall_list)
+
+
         if not (self.rooms[self.current_room].soundtrack == self.soundtracks.get_current_sound()):
             self.soundtracks.stop_sound(self.soundtracks.get_current_sound())
             self.soundtracks.play_sound(self.rooms[self.current_room].soundtrack)

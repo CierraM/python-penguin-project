@@ -1,5 +1,6 @@
 from game.room import Room
 import arcade
+import random
 from game import constants
 class Rooms:
     """A class for keeping track of our many rooms in the game. Remembers which room the player is in.
@@ -18,6 +19,15 @@ class Rooms:
         background_layer_name = "background_color"
         #A function for special setup if needed
         room.specialBehavior = None
+        room.follower_num = (random.randint(5, 15))
+
+        room.follower_list = arcade.SpriteList()
+
+        for x in range(room.follower_num):
+            follower = arcade.Sprite("penguin/game/assets/graphics/followerPenguin.png", .15)
+            follower.center_x = (random.randint(64, room.width - 64)) 
+            follower.center_y = (random.randint(64, room.height - 64))
+            room.follower_list.append(follower)
 
         my_map = arcade.tilemap.read_tmx(map_name)
 
@@ -39,6 +49,16 @@ class Rooms:
         #A function for special setup if needed
         room.specialBehavior = None
 
+        room.follower_num = (random.randint(1, 5))
+
+        room.follower_list = arcade.SpriteList()
+
+        for x in range(room.follower_num):
+            follower = arcade.Sprite("penguin/game/assets/graphics/followerPenguin.png", .15)
+            follower.center_x = (random.randint(64, room.width - 64)) 
+            follower.center_y = (random.randint(64, room.height - 64))
+            room.follower_list.append(follower)
+
         my_map = arcade.tilemap.read_tmx(map_name)
 
         room.wall_list = arcade.tilemap.process_layer(map_object=my_map, layer_name=objects_layer_name, scaling=constants.TILE_SCALING, use_spatial_hash=True)
@@ -58,6 +78,15 @@ class Rooms:
         background_layer_name = "background"
         #A function for special setup if needed
         room.specialBehavior = None
+
+        room.follower_num = (random.randint(1, 5))
+        room.follower_list = arcade.SpriteList()
+
+        for x in range(room.follower_num):
+            follower = arcade.Sprite("penguin/game/assets/graphics/followerPenguin.png", .15)
+            follower.center_x = (random.randint(64, room.width - 64)) 
+            follower.center_y = (random.randint(64, room.height - 64))
+            room.follower_list.append(follower)
 
         my_map = arcade.tilemap.read_tmx(map_name)
 
@@ -80,6 +109,14 @@ class Rooms:
         background_layer_name = "background"
         #A function for special setup if needed
         room.specialBehavior = None
+        room.follower_num = (random.randint(5, 15))
+        room.follower_list = arcade.SpriteList()
+
+        for x in range(room.follower_num):
+            follower = arcade.Sprite("penguin/game/assets/graphics/followerPenguin.png", .15)
+            follower.center_x = (random.randint(64, room.width - 64)) 
+            follower.center_y = (random.randint(64, room.height - 64))
+            room.follower_list.append(follower)
 
         my_map = arcade.tilemap.read_tmx(map_name)
 
@@ -101,6 +138,15 @@ class Rooms:
         #A function for special setup if needed
         room.specialBehavior = None
 
+        room.follower_num = (random.randint(1, 5))
+        room.follower_list = arcade.SpriteList()
+
+        for x in range(room.follower_num):
+            follower = arcade.Sprite("penguin/game/assets/graphics/followerPenguin.png", .15)
+            follower.center_x = (random.randint(64, room.width - 64)) 
+            follower.center_y = (random.randint(64, room.height - 64))
+            room.follower_list.append(follower)
+
         my_map = arcade.tilemap.read_tmx(map_name)
 
         room.wall_list = arcade.tilemap.process_layer(map_object=my_map, layer_name=objects_layer_name, scaling=constants.TILE_SCALING, use_spatial_hash=True)
@@ -120,6 +166,15 @@ class Rooms:
         background_layer_name = "background"
         #A function for special setup if needed
         room.specialBehavior = None
+
+        room.follower_num = (random.randint(1, 5))
+        room.follower_list = arcade.SpriteList()
+
+        for x in range(room.follower_num):
+            follower = arcade.Sprite("penguin/game/assets/graphics/followerPenguin.png", .15)
+            follower.center_x = (random.randint(64, room.width - 64)) 
+            follower.center_y = (random.randint(64, room.height - 64))
+            room.follower_list.append(follower)
 
         my_map = arcade.tilemap.read_tmx(map_name)
 
@@ -142,6 +197,15 @@ class Rooms:
         #A function for special setup if needed
         room.specialBehavior = None
 
+        room.follower_num = (random.randint(5, 15))
+        room.follower_list = arcade.SpriteList()
+
+        for x in range(room.follower_num):
+            follower = arcade.Sprite("penguin/game/assets/graphics/followerPenguin.png", .15)
+            follower.center_x = (random.randint(64, room.width - 64)) 
+            follower.center_y = (random.randint(64, room.height - 64))
+            room.follower_list.append(follower)
+
         my_map = arcade.tilemap.read_tmx(map_name)
         
         room.background = arcade.tilemap.process_layer(map_object=my_map, layer_name=background_layer_name, scaling=2, use_spatial_hash=True)
@@ -163,6 +227,8 @@ class Rooms:
         background_layer_name = "background"
         #A function for special setup if needed
         # room.specialBehavior = self.setupBoss
+        room.follower_num = 0
+        room.follower_list = arcade.SpriteList()
 
         my_map = arcade.tilemap.read_tmx(map_name)
 
@@ -180,6 +246,15 @@ class Rooms:
         room.soundtrack = "village_theme"
         #A function for special setup if needed
         room.specialBehavior = None
+
+        room.follower_num = (random.randint(5, 25))
+        room.follower_list = arcade.SpriteList()
+
+        for x in range(room.follower_num):
+            follower = arcade.Sprite("penguin/game/assets/graphics/followerPenguin.png", .15)
+            follower.center_x = (random.randint(64, room.width - 64)) 
+            follower.center_y = (random.randint(64, room.height - 64))
+            room.follower_list.append(follower)
         
         map_name = "penguin/game/assets/maps/room_9.tmx"
         objects_layer_name = "walls"

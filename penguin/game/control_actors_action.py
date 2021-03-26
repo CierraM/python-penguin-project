@@ -39,29 +39,26 @@ class ControlActorsAction(Action):
         Args:
             cast (dict): The game actors {key: tag, value: list}.
         """
-
+        #Cast: [player, player bullet, enemy bullet, follower bullet, following list, follower list, walls]
         player_sprite_list = cast[0]
         player_sprite = player_sprite_list[0]
         move_boss = len(player_sprite_list) > 1
         if move_boss:
             boss_sprite = player_sprite_list[1]
-        penguin_follower = cast[2]
-        bullet_list = cast[3]
+        penguin_follower = cast[4]
+        bullet_list = cast[1]
         room = self.director.rooms[self.director.current_room]
         room_x = room.width
         room_y = room.height
-        follower_bullet_list = cast[5]
-        # wall_item = arcade.tilemap.SpriteList[0].center_x
-        # wall_list = room.wall_list.
-        # penguin_follower_max_x = room.width - 
-        # penguin_follower_min_x = room.width
+        follower_bullet_list = cast[3]
+
 
         new_bullet = self._input_service.get_create_bullet()
         new_change_x = self._input_service.get_change_x()
         new_change_y = self._input_service.get_change_y()
         
         if move_boss:
-            enemy_bullet_list = cast[4]
+            enemy_bullet_list = cast[2]
             if boss_sprite.center_x >= constants.SCREEN_WIDTH:
                 self.boss_move_x = 0 - self.boss_move_x 
                 self.boss_wall_hits += 1
