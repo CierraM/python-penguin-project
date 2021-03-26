@@ -1,5 +1,6 @@
 import sys
 import arcade
+from game.sounds import Sounds
 
 class InputService:
     """Detects player input. The responsibility of the class of objects is to detect and communicate player keypresses.
@@ -19,6 +20,7 @@ class InputService:
         self.sprite_change_x = 0
         self.sprite_change_y = 0
         self.create_bullet = False
+        self.sounds = Sounds()
         
     def key_press(self, symbol, modifiers):
         """Gets the selected direction for the given player.
@@ -49,6 +51,7 @@ class InputService:
         #This is for firing bullets
         if self._symbol == arcade.key.SPACE:
             self.create_bullet = True
+            self.sounds.play_sound("throw")
     
                 
 
