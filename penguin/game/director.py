@@ -11,6 +11,7 @@ from game import constants
 from game.sounds import Sounds
 import random
 from game.rooms import Rooms
+import time
 
 class IntroView(arcade.View):
     """View to intro the game"""
@@ -26,6 +27,12 @@ class IntroView(arcade.View):
         #to reset the viewport back to the start so we can see what we draw
         arcade.set_viewport(0, constants.SCREEN_WIDTH - 1, 0, constants.SCREEN_HEIGHT - 1)
 
+    def setup(self):
+        """Add Music"""
+        self.sounds = Sounds()
+        self.soundtracks = Sounds() #For music
+        self.soundtracks.play_sound("intro_screen")
+
     def on_draw(self):
         """Draw this view"""
         arcade.start_render()
@@ -36,6 +43,8 @@ class IntroView(arcade.View):
         self._modifiers = modifiers
 
         if self._symbol == arcade.key.SPACE:
+            self.soundtracks.stop_sound(self.soundtracks.get_current_sound())
+            self.sounds.play_sound("game_start")
             game_view = DirectorView()
             game_view.setup()
             self.window.show_view(game_view)
@@ -54,6 +63,14 @@ class GameOverView(arcade.View):
         #to reset the viewport back to the start so we can see what we draw
         arcade.set_viewport(0, constants.SCREEN_WIDTH - 1, 0, constants.SCREEN_HEIGHT - 1)
 
+    def setup(self):
+        """Add Music"""
+        self.sounds = Sounds()
+        # self.soundtracks = Sounds() #For music
+        # self.soundtracks.stop_sound(self.soundtracks.get_current_sound())
+        time.sleep(0.1)
+        self.sounds.play_sound("gameover")
+
     def on_draw(self):
         """Draw this view"""
         arcade.start_render()
@@ -64,6 +81,8 @@ class GameOverView(arcade.View):
         self._modifiers = modifiers
 
         if self._symbol == arcade.key.SPACE:
+            self.sounds.stop_sound(self.sounds.get_current_sound())
+            self.sounds.play_sound("game_start")
             game_view = DirectorView()
             game_view.setup()
             self.window.show_view(game_view)
@@ -106,6 +125,8 @@ class DirectorView(arcade.View):
         self.physics_engine = None
         self.sounds = Sounds() #For sound effects
         self.soundtracks = Sounds() #For music
+        #To let the game start sound finish, pause for 1.5 seconds
+        time.sleep(1.7)
         self.soundtracks.play_sound("main_theme")
 
         # Keep track of scrolling
@@ -169,7 +190,7 @@ class DirectorView(arcade.View):
         # output_service.draw_actors(cast["avatar"])
         control_actors_action = ControlActorsAction(self.input_service, self)
         self.game_over = GameOverView()
-        handle_collisions_action = HandleCollisionsAction(self, self.game_over)
+        handle_collisions_action = HandleCollisionsAction(self, self.game_over, self.soundtracks)
         draw_actors_action = DrawActorsAction()
 
         self._script["input"] =  [control_actors_action]
