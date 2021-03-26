@@ -310,6 +310,9 @@ class DirectorView(arcade.View):
         if not (self.rooms[self.current_room].soundtrack == self.soundtracks.get_current_sound()):
             self.soundtracks.stop_sound(self.soundtracks.get_current_sound())
             self.soundtracks.play_sound(self.rooms[self.current_room].soundtrack)
+
+
+
         
 
         if new == 8:
@@ -324,13 +327,12 @@ class DirectorView(arcade.View):
         if prev == 7:
             self._cast.remove(self.rooms[6].background2)
 
+        if new == 8:
+            self.player_list.append(self.boss_sprite)
 
 
         self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite, self.rooms[self.current_room].wall_list)
         
-        
-        
-    # def boss_room_setup(self):
 
         
     def scroll(self):

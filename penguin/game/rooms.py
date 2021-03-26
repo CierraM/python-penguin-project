@@ -162,7 +162,7 @@ class Rooms:
         objects_layer_name = "walls"
         background_layer_name = "background"
         #A function for special setup if needed
-        room.specialBehavior = self.setupBoss
+        # room.specialBehavior = self.setupBoss
 
         my_map = arcade.tilemap.read_tmx(map_name)
 
