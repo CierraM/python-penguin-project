@@ -9,6 +9,7 @@ class SpriteWithHealth(arcade.Sprite):
     def __init__(self, image, scale, health_y_position, text_y_position, text_x_position, font_largeness, health_width, height, max_health):
         super().__init__(image, scale)
 
+        
         self.max_health = max_health
         self.cur_health = max_health
         self.health_bar_y = health_y_position

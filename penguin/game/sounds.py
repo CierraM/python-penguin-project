@@ -26,7 +26,8 @@ class Sounds:
                        "player-death":"penguin/game/assets/sounds/Death.wav",
                        "player-hit":"penguin/game/assets/sounds/snowballimpact.wav",
                        "artifact":"penguin/game/assets/sounds/Artifact.wav",
-                       "zip-sound":"penguin/game/assets/sounds/mixkit-fast-magic-game-spell-883.wav"}
+                       "zip-sound":"penguin/game/assets/sounds/mixkit-fast-magic-game-spell-883.wav",
+                       "teleport": "penguin/game/assets/sounds/mixkit-fast-magic-game-spell-883.wav"}
     
     def play_sound(self, sound):
         self.current_sound = sound
