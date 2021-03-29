@@ -23,17 +23,17 @@ class Rooms:
 
         room.follower_list = arcade.SpriteList()
 
-        for x in range(room.follower_num):
-            follower = arcade.Sprite("penguin/game/assets/graphics/followerPenguin.png", .15)
-            follower.center_x = (random.randint(64, room.width - 64)) 
-            follower.center_y = (random.randint(64, room.height - 64))
-            room.follower_list.append(follower)
-
         my_map = arcade.tilemap.read_tmx(map_name)
 
         room.wall_list = arcade.tilemap.process_layer(map_object=my_map, layer_name=objects_layer_name, scaling=constants.TILE_SCALING, use_spatial_hash=True)
 
         room.background = arcade.tilemap.process_layer(map_object=my_map, layer_name=background_layer_name, scaling=constants.TILE_SCALING, use_spatial_hash=True)
+
+        for x in range(room.follower_num):
+            follower = arcade.Sprite("penguin/game/assets/graphics/followerPenguin.png", .15)
+            follower.center_x = (random.randint(64, room.width - 64)) 
+            follower.center_y = (random.randint(64, room.height - 64))
+            room.follower_list.append(follower)
 
         return room
     

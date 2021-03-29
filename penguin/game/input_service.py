@@ -37,16 +37,16 @@ class InputService:
             arcade.close_window()
 
         if self._symbol == arcade.key.A or self._symbol == arcade.key.LEFT:
-            self.sprite_change_x = -10
+            self.sprite_change_x = -5
 
         if self._symbol == arcade.key.D or self._symbol == arcade.key.RIGHT:
-            self.sprite_change_x = 10
+            self.sprite_change_x = 5
 
         if self._symbol == arcade.key.W or self._symbol == arcade.key.UP:
-            self.sprite_change_y = 10
+            self.sprite_change_y = 5
 
         if self._symbol == arcade.key.S or self._symbol == arcade.key.DOWN:
-            self.sprite_change_y = -10
+            self.sprite_change_y = -5
         
         #This is for firing bullets
         if self._symbol == arcade.key.SPACE:
