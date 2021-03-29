@@ -29,11 +29,20 @@ class Rooms:
 
         room.background = arcade.tilemap.process_layer(map_object=my_map, layer_name=background_layer_name, scaling=constants.TILE_SCALING, use_spatial_hash=True)
 
+        
         for x in range(room.follower_num):
-            follower = arcade.Sprite("penguin/game/assets/graphics/followerPenguin.png", .15)
-            follower.center_x = (random.randint(64, room.width - 64)) 
-            follower.center_y = (random.randint(64, room.height - 64))
-            room.follower_list.append(follower)
+            find_place = True
+            while find_place:
+                follower = arcade.Sprite("penguin/game/assets/graphics/followerPenguin.png", .15)
+                follower.center_x = (random.randint(64, room.width - 64)) 
+                follower.center_y = (random.randint(64, room.height - 64))
+                for wall in room.wall_list:
+                    if wall.center_x == follower.center_x and wall.center_y == follower.center_y:
+                        find_place = True
+                        continue
+                else:
+                    find_place = False
+                    room.follower_list.append(follower)
 
         return room
     
@@ -54,10 +63,18 @@ class Rooms:
         room.follower_list = arcade.SpriteList()
 
         for x in range(room.follower_num):
-            follower = arcade.Sprite("penguin/game/assets/graphics/followerPenguin.png", .15)
-            follower.center_x = (random.randint(64, room.width - 64)) 
-            follower.center_y = (random.randint(64, room.height - 64))
-            room.follower_list.append(follower)
+            find_place = True
+            while find_place:
+                follower = arcade.Sprite("penguin/game/assets/graphics/followerPenguin.png", .15)
+                follower.center_x = (random.randint(64, room.width - 64)) 
+                follower.center_y = (random.randint(64, room.height - 64))
+                for wall in room.wall_list:
+                    if wall.center_x == follower.center_x and wall.center_y == follower.center_y:
+                        find_place = True
+                        continue
+                else:
+                    find_place = False
+                    room.follower_list.append(follower)
 
         my_map = arcade.tilemap.read_tmx(map_name)
 
@@ -83,10 +100,18 @@ class Rooms:
         room.follower_list = arcade.SpriteList()
 
         for x in range(room.follower_num):
-            follower = arcade.Sprite("penguin/game/assets/graphics/followerPenguin.png", .15)
-            follower.center_x = (random.randint(64, room.width - 64)) 
-            follower.center_y = (random.randint(64, room.height - 64))
-            room.follower_list.append(follower)
+            find_place = True
+            while find_place:
+                follower = arcade.Sprite("penguin/game/assets/graphics/followerPenguin.png", .15)
+                follower.center_x = (random.randint(64, room.width - 64)) 
+                follower.center_y = (random.randint(64, room.height - 64))
+                for wall in room.wall_list:
+                    if wall.center_x == follower.center_x and wall.center_y == follower.center_y:
+                        find_place = True
+                        continue
+                else:
+                    find_place = False
+                    room.follower_list.append(follower)
 
         my_map = arcade.tilemap.read_tmx(map_name)
 
@@ -113,10 +138,18 @@ class Rooms:
         room.follower_list = arcade.SpriteList()
 
         for x in range(room.follower_num):
-            follower = arcade.Sprite("penguin/game/assets/graphics/followerPenguin.png", .15)
-            follower.center_x = (random.randint(64, room.width - 64)) 
-            follower.center_y = (random.randint(64, room.height - 64))
-            room.follower_list.append(follower)
+            find_place = True
+            while find_place:
+                follower = arcade.Sprite("penguin/game/assets/graphics/followerPenguin.png", .15)
+                follower.center_x = (random.randint(64, room.width - 64)) 
+                follower.center_y = (random.randint(64, room.height - 64))
+                for wall in room.wall_list:
+                    if wall.center_x == follower.center_x and wall.center_y == follower.center_y:
+                        find_place = True
+                        continue
+                else:
+                    find_place = False
+                    room.follower_list.append(follower)
 
         my_map = arcade.tilemap.read_tmx(map_name)
 
@@ -142,10 +175,18 @@ class Rooms:
         room.follower_list = arcade.SpriteList()
 
         for x in range(room.follower_num):
-            follower = arcade.Sprite("penguin/game/assets/graphics/followerPenguin.png", .15)
-            follower.center_x = (random.randint(64, room.width - 64)) 
-            follower.center_y = (random.randint(64, room.height - 64))
-            room.follower_list.append(follower)
+            find_place = True
+            while find_place:
+                follower = arcade.Sprite("penguin/game/assets/graphics/followerPenguin.png", .15)
+                follower.center_x = (random.randint(64, room.width - 64)) 
+                follower.center_y = (random.randint(64, room.height - 64))
+                for wall in room.wall_list:
+                    if wall.center_x == follower.center_x and wall.center_y == follower.center_y:
+                        find_place = True
+                        continue
+                else:
+                    find_place = False
+                    room.follower_list.append(follower)
 
         my_map = arcade.tilemap.read_tmx(map_name)
 
@@ -171,10 +212,18 @@ class Rooms:
         room.follower_list = arcade.SpriteList()
 
         for x in range(room.follower_num):
-            follower = arcade.Sprite("penguin/game/assets/graphics/followerPenguin.png", .15)
-            follower.center_x = (random.randint(64, room.width - 64)) 
-            follower.center_y = (random.randint(64, room.height - 64))
-            room.follower_list.append(follower)
+            find_place = True
+            while find_place:
+                follower = arcade.Sprite("penguin/game/assets/graphics/followerPenguin.png", .15)
+                follower.center_x = (random.randint(64, room.width - 64)) 
+                follower.center_y = (random.randint(64, room.height - 64))
+                for wall in room.wall_list:
+                    if wall.center_x == follower.center_x and wall.center_y == follower.center_y:
+                        find_place = True
+                        continue
+                else:
+                    find_place = False
+                    room.follower_list.append(follower)
 
         my_map = arcade.tilemap.read_tmx(map_name)
 
@@ -201,10 +250,18 @@ class Rooms:
         room.follower_list = arcade.SpriteList()
 
         for x in range(room.follower_num):
-            follower = arcade.Sprite("penguin/game/assets/graphics/followerPenguin.png", .15)
-            follower.center_x = (random.randint(64, room.width - 64)) 
-            follower.center_y = (random.randint(64, room.height - 64))
-            room.follower_list.append(follower)
+            find_place = True
+            while find_place:
+                follower = arcade.Sprite("penguin/game/assets/graphics/followerPenguin.png", .15)
+                follower.center_x = (random.randint(64, room.width - 64)) 
+                follower.center_y = (random.randint(64, room.height - 64))
+                for wall in room.wall_list:
+                    if wall.center_x == follower.center_x and wall.center_y == follower.center_y:
+                        find_place = True
+                        continue
+                else:
+                    find_place = False
+                    room.follower_list.append(follower)
 
         my_map = arcade.tilemap.read_tmx(map_name)
         
@@ -251,10 +308,18 @@ class Rooms:
         room.follower_list = arcade.SpriteList()
 
         for x in range(room.follower_num):
-            follower = arcade.Sprite("penguin/game/assets/graphics/followerPenguin.png", .15)
-            follower.center_x = (random.randint(64, room.width - 64)) 
-            follower.center_y = (random.randint(64, room.height - 64))
-            room.follower_list.append(follower)
+            find_place = True
+            while find_place:
+                follower = arcade.Sprite("penguin/game/assets/graphics/followerPenguin.png", .15)
+                follower.center_x = (random.randint(64, room.width - 64)) 
+                follower.center_y = (random.randint(64, room.height - 64))
+                for wall in room.wall_list:
+                    if wall.center_x == follower.center_x and wall.center_y == follower.center_y:
+                        find_place = True
+                        continue
+                else:
+                    find_place = False
+                    room.follower_list.append(follower)
         
         map_name = "penguin/game/assets/maps/room_9.tmx"
         objects_layer_name = "walls"
