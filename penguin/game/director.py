@@ -12,6 +12,7 @@ from game.sounds import Sounds
 import random
 from game.rooms import Rooms
 import time
+from game.player import Player
 
 class IntroView(arcade.View):
     """View to intro the game"""
@@ -147,9 +148,10 @@ class DirectorView(arcade.View):
         self.follower_bullet_list = arcade.SpriteList() #bullets the follower penguins shoot
         self.npc_list = arcade.SpriteList() #NPC village penguins
 
-    
+        
         #this is the player sprite
-        self.player_sprite = SpriteWithHealth("penguin/game/assets/graphics/penguin.png", .25, 32, 33, -10, 11, 40, 5,  max_health = 3) # this function give the sprite a health bar
+        
+        self.player_sprite = Player("penguin/game/assets/graphics/penguin.png", .25, 32, 33, -10, 11, 40, 5,  max_health = 3) # this function give the sprite a health bar
         self.player_sprite.center_x = (1184)
         self.player_sprite.center_y = (704)
         

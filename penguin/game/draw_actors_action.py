@@ -34,6 +34,7 @@ class DrawActorsAction(Action):
 
         #This specifically draws the health bar for the player
         self.player_sprite = cast[0]
+        
         for player in self.player_sprite:
             player.draw_health_number()
             player.draw_health_bar()
