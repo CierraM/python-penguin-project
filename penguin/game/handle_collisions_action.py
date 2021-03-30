@@ -49,6 +49,7 @@ class HandleCollisionsAction(Action):
         # # Generate a list of all sprites that collided with the player.
         penguin_hit_list = arcade.check_for_collision_with_list(player_sprite, small_penguin_list)
         # Loop through each colliding sprite, and append to follower list
+        
         for penguin in penguin_hit_list:
             penguin.remove_from_sprite_lists()
             follower_list.append(penguin) 

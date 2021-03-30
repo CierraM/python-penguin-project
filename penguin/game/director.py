@@ -141,6 +141,8 @@ class DirectorView(arcade.View):
         self.bottom = 350
         self.left = 600
 
+        self.punnum = 0
+
         self.player_list = arcade.SpriteList() # you
         self.follower_list = arcade.SpriteList() # penguins that could follow you
         self.following_list = arcade.SpriteList() # penguins that are following you
@@ -207,7 +209,8 @@ class DirectorView(arcade.View):
     def on_update(self, delta_time: float):
         self._cue_action("input")
         self._cue_action("update")
-
+        if self.rooms[self.current_room] == 8:
+            self.npc_talk()
         #Handle scrolling and viewport positioning:
         if self.rooms[self.current_room].size == 'big':
 
@@ -239,13 +242,13 @@ class DirectorView(arcade.View):
 
 
     def on_draw(self):
-        arcade.start_render()
-        if self.rooms[self.current_room].background:
-            self.rooms[self.current_room].background.draw()
+        arcade.start_render()       
+        self.rooms[self.current_room].background.draw()
 
         self._cue_action("output")
         # If you want to draw text on the screen put it here
-        
+        if self.current_room == 8:
+            self.npc_talk()
 
     def on_key_press(self, symbol, modifiers):
         self.input_service.key_press(symbol, modifiers)
@@ -328,6 +331,9 @@ class DirectorView(arcade.View):
         if new == 8:
             self.player_list.append(self.boss_sprite)
 
+        if new == 9:
+            self.punnum = random.randint(0, 3)
+
 
         self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite, self.rooms[self.current_room].wall_list)
         
@@ -373,3 +379,70 @@ class DirectorView(arcade.View):
                                 constants.SCREEN_WIDTH + self.view_left,
                                 self.view_bottom,
                                 constants.SCREEN_HEIGHT + self.view_bottom)
+
+
+    def npc_talk(self):
+        # start_x and start_y make the start point for the text. We draw a dot to make it easy too see
+        # the text in relation to its start x and y.
+        player = self.player_sprite
+        
+        #Jane
+        text1 = """                Jane: \n
+                What, you're here to save us from King Silverclaw? \n
+                Wow, that's great news! Don't go alone though. He \n
+                is dangerous! Please explore penguinland and see \n
+                if you can gather up some followers first. They \n
+                will help you in the battle. There are a lot of \n
+                brave penguins in these parts. Maybe you've met \n
+                some of them already."""
+        
+        if abs(507 - player.center_x) < 100 and abs(381 - player.center_y) < 100:
+            #x, y, of bottom left corner, width, and height
+            arcade.draw_xywh_rectangle_filled(507, 400, 500, 280, arcade.color.WHITE)
+            arcade.draw_text(text1, 507, 430, arcade.color.BLACK, 14)
+
+        #Cierra
+        text2 = """                    Cierra: \n
+                    Hi, you're new around here, aren't you? \n
+                    Let me just warn you, in the area to the \n
+                    left of the penguinville there are some warning \n
+                    signs by North of the pathway. Don't go that way! \n
+                    There is an angry polar bear king, and he \n
+                    doesn't like visitors. Be careful out there.
+                """
+        if abs(2075 - player.center_x) < 150 and abs(266 - player.center_y) < 150:
+            #x, y, of bottom left corner, width, and height
+            arcade.draw_xywh_rectangle_filled(1846, 311, 500, 250, arcade.color.WHITE)
+            arcade.draw_text(text2, 1846, 310, arcade.color.BLACK, 14)
+        
+
+        #Jacob
+        puns = ["I had the best ice pun to tell you… Problem is, it slipped my mind.", "What do you call a cold penguin?A Brrr-d", "Where do penguins go dancing? The Snow Ball.", "What happens when you’re alone and you get too cold? You’re totally ice-olated.", "What do you get when you cross a snowman with a vampire? Frostbite."]
+        pun = puns[self.punnum]
+        text3 = f'''                  Jacob: \n
+                 Hey, you wanna hear a joke? \n
+                 {pun} \n
+                 Haha!\n
+                 Oh by the way, I heard about some cool potion you can\n
+                 find that will let you throw snowballs super fast!\n
+                 I've honestly never found one myself, but who knows,\n
+                 maybe if you look around enough, you'll get lucky!\n
+        '''
+        if abs(522 - player.center_x) < 150 and abs(1076 - player.center_y) < 150:
+            #x, y, of bottom left corner, width, and height
+            arcade.draw_xywh_rectangle_filled(550, 1050, 600, 300, arcade.color.WHITE)
+            arcade.draw_text(text3, 550, 1050, arcade.color.BLACK, 14)
+
+        #Benjamin
+        text4 = """                Benjamin: \n
+                It's a dangerous world out there. It's important \n
+                for adventurous penguins like you to know how to \n
+                defend yourselves. In a pinch, the snow around us \n
+                makes a great weapon! Just pack a flipperful of \n
+                snow together and press the space bar to throw it. \n
+                Don't forget this now! It could save your life! \n
+                """
+        if abs(1311 - player.center_x) < 100 and abs(764 - player.center_y) < 100:
+            #x, y, of bottom left corner, width, and height
+            arcade.draw_xywh_rectangle_filled(1330, 790, 500, 250, arcade.color.WHITE)
+            arcade.draw_text(text4, 1330, 790, arcade.color.BLACK, 14)
