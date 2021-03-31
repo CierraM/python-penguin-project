@@ -29,7 +29,7 @@ class HandleCollisionsAction(Action):
         Args:
             cast (dict): The game actors {key: tag, value: list}.
         """
-        #Cast: [player, player bullet, enemy bullet, follower bullet, following list, follower list, walls]
+        #Cast: [player, player bullet, enemy bullet, follower bullet, following list, follower list, walls, artifact]
         player_sprite_list = cast[0]
         player_sprite = player_sprite_list[0]
         small_penguin_list = cast[5]
@@ -41,13 +41,14 @@ class HandleCollisionsAction(Action):
             boss_sprite = player_sprite_list[1]
         enemy_bullet_list = cast[2]
         follower_bullet_list = cast[3]
+
         
         #The number of penguins picked up in a room
         
         #Collision handling for big penguin with little penguin
         player_bullet_list = cast[1]
         #
-        # # Generate a list of all sprites that collided with the player.
+        # # Generate a list of all small penguin sprites that collided with the player.
         penguin_hit_list = arcade.check_for_collision_with_list(player_sprite, small_penguin_list)
         # Loop through each colliding sprite, and append to follower list
         
@@ -57,6 +58,28 @@ class HandleCollisionsAction(Action):
             penguin.center_x = player_sprite.center_x + random.randint(-20, 40)
             penguin.center_y = player_sprite.center_y + random.randint(-20, 40)
             self.sounds.play_sound("penguin-hit")
+        
+        #Artifact collision handling:
+        # for the cave
+        if len(cast) == 9:
+            artifact = cast[8][0]
+            if arcade.check_for_collision(player_sprite, artifact):
+                self.director.collected_artifacts += 1
+                self.director.artifact_2_collected = True
+                artifact.remove_from_sprite_lists()
+                self.sounds.play_sound("artifact")
+                cast.pop(8)
+
+        #For the maze
+        if len(cast) == 8:
+            artifact = cast[7][0]
+            if arcade.check_for_collision(player_sprite, artifact):
+                self.director.collected_artifacts += 1
+                self.director.artifact_1_collected = True
+                artifact.remove_from_sprite_lists()
+                self.sounds.play_sound("artifact")
+                cast.pop(7)
+        
 
         
          # Collision handling for switching rooms:
