@@ -13,6 +13,7 @@ import random
 from game.rooms import Rooms
 import time
 from game.player import Player
+import sys
 
 class IntroView(arcade.View):
     """View to intro the game"""
@@ -50,6 +51,41 @@ class IntroView(arcade.View):
             game_view = DirectorView()
             game_view.setup()
             self.window.show_view(game_view)
+
+class VictoryView(arcade.View):
+    """View victory screen for beating the game"""
+
+    def __init__(self):
+        """This will run once the view is set"""
+        super().__init__()
+        self.texture = arcade.load_texture("penguin/game/assets/graphics/completeEnd.png")
+
+        # arcade.set_background_color(arcade.color.BUBBLES)
+
+        #Reset the viewport, necessary if we have a scrolling game and we need
+        #to reset the viewport back to the start so we can see what we draw
+        arcade.set_viewport(0, constants.SCREEN_WIDTH - 1, 0, constants.SCREEN_HEIGHT - 1)
+
+    def setup(self):
+        """Add Music"""
+        self.sounds = Sounds()
+        self.soundtracks = Sounds() #For music
+        self.soundtracks.play_sound("end_screen")
+
+    def on_draw(self):
+        """Draw this view"""
+        arcade.start_render()
+        self.texture.draw_sized(constants.SCREEN_WIDTH / 2, (constants.SCREEN_HEIGHT / 2) - 10, 1200, 690)
+
+    def on_key_press(self, symbol, modifiers):
+        self._symbol = symbol
+        self._modifiers = modifiers
+
+        if self._symbol == arcade.key.ESCAPE:
+            self.soundtracks.stop_sound(self.soundtracks.get_current_sound())
+            self.sounds.play_sound("gg")
+            time.sleep(.65)
+            arcade.close_window()
 
 class GameOverView(arcade.View):
     """View to show when game is over"""
@@ -159,9 +195,9 @@ class DirectorView(arcade.View):
         self.player_list.append(self.player_sprite)
 
         #this is the Boss sprite
-        self.boss_sprite = SpriteWithHealth("penguin/game/assets/graphics/boss.png", .25, -92, -112, -22, 14, 80, 7, max_health = 30) # this function give the sprite a health bar
+        self.boss_sprite = SpriteWithHealth("penguin/game/assets/graphics/boss.png", .24, -90, -110, -22, 14, 80, 7, max_health = 30) # this function give the sprite a health bar
         self.boss_sprite.center_x = (constants.SCREEN_WIDTH / 2)
-        self.boss_sprite.center_y = (constants.SCREEN_HEIGHT - 150)
+        self.boss_sprite.center_y = (constants.SCREEN_HEIGHT - 210)
         #self.player_list.append(self.boss_sprite)
 
         
@@ -183,13 +219,14 @@ class DirectorView(arcade.View):
             
         # create the script {key: tag, value: list}
         self._script = {}
-
+        # passing variables
         self.input_service = InputService()
+        self.game_over = GameOverView()
+        self.victory_view = VictoryView()
 
         # output_service.draw_actors(cast["avatar"])
         control_actors_action = ControlActorsAction(self.input_service, self)
-        self.game_over = GameOverView()
-        handle_collisions_action = HandleCollisionsAction(self, self.game_over, self.soundtracks)
+        handle_collisions_action = HandleCollisionsAction(self, self.game_over, self.victory_view, self.soundtracks)
         draw_actors_action = DrawActorsAction()
 
         self._script["input"] =  [control_actors_action]

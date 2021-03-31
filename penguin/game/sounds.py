@@ -26,6 +26,7 @@ class Sounds:
                        "player-death":"penguin/game/assets/sounds/Death.wav",
                        "player-hit":"penguin/game/assets/sounds/snowballimpact.wav",
                        "artifact":"penguin/game/assets/sounds/Artifact.wav",
+                       "gg":"penguin/game/assets/sounds/Artifact2.wav",
                        "zip-sound":"penguin/game/assets/sounds/mixkit-fast-magic-game-spell-883.wav",
                        "teleport": "penguin/game/assets/sounds/mixkit-fast-magic-game-spell-883.wav"}
     
