@@ -167,6 +167,10 @@ class DirectorView(arcade.View):
         time.sleep(1.7)
         self.soundtracks.play_sound("main_theme")
 
+        self.collected_artifacts = 0
+        self.artifact_1_collected = False
+        self.artifact_2_collected = False
+
         # Keep track of scrolling
         self.view_bottom =704
         self.view_left = 1184
@@ -200,9 +204,10 @@ class DirectorView(arcade.View):
         self.boss_sprite = SpriteWithHealth("penguin/game/assets/graphics/boss.png", .24, -90, -110, -22, 14, 80, 7, max_health = 30) # this function give the sprite a health bar
         self.boss_sprite.center_x = (constants.SCREEN_WIDTH / 2)
         self.boss_sprite.center_y = (constants.SCREEN_HEIGHT - 210)
-        #self.player_list.append(self.boss_sprite)
-
         
+
+        #Create artifacts, but don't append it yet
+        self.artifact_list = arcade.SpriteList()
 
         self._cast = []
         self._cast.append(self.player_list)
@@ -371,6 +376,21 @@ class DirectorView(arcade.View):
         if new == 9:
             self.punnum = random.randint(0, 3)
 
+        if new == 5 and (not self.artifact_1_collected):
+            artifact1 = arcade.Sprite('penguin/game/assets/graphics/potion.png', .2) #Artifact for room 5
+            artifact1.center_x = 592
+            artifact1.center_y = 100
+            self.artifact_list.append(artifact1)
+            self._cast.append(self.artifact_list)
+        
+
+        if new == 7 and (not self.artifact_2_collected):
+            artifact2 = arcade.Sprite('penguin/game/assets/graphics/potion.png', .2) #Artifact for room 7
+            artifact2.center_x = 250
+            artifact2.center_y = 250
+            self.artifact_list.append(artifact2)
+            self._cast.append(self.artifact_list)
+            
 
         self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite, self.rooms[self.current_room].wall_list)
         

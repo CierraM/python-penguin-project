@@ -104,19 +104,14 @@ class ControlActorsAction(Action):
                 else: 
                     penguin.center_y = player_sprite.center_y - self.follower_offset 
 
-            # delta_x = player_sprite.center_x - penguin.center_x
-            # penguin.center_x = self.move_follower(delta_x,player_sprite.center_x)
-            # delta_y = player_sprite.center_y - penguin.center_y
-            # penguin.center_y = self.move_follower(delta_y,player_sprite.center_y)
-
         #This creates a new bullet and gives it attributes
-        # if new_bullet and self.fire_speed == 0:
+        artifact_num = self.director.collected_artifacts
         if new_bullet:
             self.bullet_buffer += 1
             if self.bullet_buffer % 10 == 0:
                 bullet = arcade.Sprite("penguin/game/assets/graphics/penguinSnowball.png", .18)
                 bullet.angle = 0
-                bullet.change_y = constants.BULLET_SPEED
+                bullet.change_y = constants.BULLET_SPEED * (artifact_num + 1)
                 bullet.center_x = player_sprite.center_x
                 bullet.bottom = player_sprite.top
                 bullet_list.append(bullet)
