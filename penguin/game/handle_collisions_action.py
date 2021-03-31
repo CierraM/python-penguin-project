@@ -13,11 +13,12 @@ class HandleCollisionsAction(Action):
         Controller
     """
 
-    def __init__(self, director, game_over_view, soundtracks):
+    def __init__(self, director, game_over_view, victory_view, soundtracks):
         self.director = director
         self.sounds = Sounds()
         self.soundtracks = soundtracks
         self.game_over = game_over_view
+        self.victory = victory_view
         
 
     def execute(self, cast):
@@ -253,14 +254,19 @@ class HandleCollisionsAction(Action):
                 for hit in hit_list_1:
                     #remove 1 point of health per hit
                     boss_sprite.cur_health -= 1
-
                     if boss_sprite.cur_health <= 0:
                         #Dead
+                        if self.soundtracks.get_current_sound() != None:
+                            self.soundtracks.stop_sound(self.soundtracks.get_current_sound())
                         self.sounds.play_sound("boss-death")
                         boss_sprite.remove_from_sprite_lists()
+                        time.sleep(.8)
+                        view = self.victory
+                        view.setup()
+                        self.director.window.show_view(view)
                     else:
                         #Not dead
-                        self.sounds.play_sound("boss-hit")
+                        self.sounds.play_sound("boss-hit")  
             if bullet.bottom > constants.SCREEN_HEIGHT:
                 bullet.remove_from_sprite_lists()
 
@@ -287,12 +293,6 @@ class HandleCollisionsAction(Action):
                     #Not dead
                     self.sounds.play_sound("player-hit")
 
-                # if player_sprite.cur_health <= 0:
-                #     #insert code for death/end game
-                #     pass
-                # else:
-                #     #insert sound for taking a hit
-                #     pass
             for bullet in enemy_bullet_list:
                 if bullet.bottom < 0:
                     bullet.remove_from_sprite_lists()
@@ -311,9 +311,15 @@ class HandleCollisionsAction(Action):
 
                     if boss_sprite.cur_health <= 0:
                         #Dead
+                        if self.soundtracks.get_current_sound() != None:
+                            self.soundtracks.stop_sound(self.soundtracks.get_current_sound())
                         self.sounds.play_sound("boss-death")
                         boss_sprite.remove_from_sprite_lists()
+                        time.sleep(.8)
                         move_boss = False 
+                        view = self.victory
+                        view.setup()
+                        self.director.window.show_view(view)
                     else:
                         #Not dead
                         self.sounds.play_sound("boss-hit")
