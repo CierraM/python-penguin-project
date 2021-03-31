@@ -443,7 +443,7 @@ class DirectorView(arcade.View):
                     Hi, you're new around here, aren't you? \n
                     Let me just warn you, in the area to the \n
                     left of the penguinville there are some warning \n
-                    signs by North of the pathway. Don't go that way! \n
+                    signs North of the pathway. Don't go that way! \n
                     There is an angry polar bear king, and he \n
                     doesn't like visitors. Be careful out there.
                 """
