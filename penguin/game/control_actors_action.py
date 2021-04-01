@@ -74,9 +74,27 @@ class ControlActorsAction(Action):
         changey = player_sprite.center_y + new_change_y
         player_sprite.center_y = changey
 
+        penguin_army_col = 3
+        army_right = 1
+        current_col = 1
+        current_row = 1
+        space_col = 20
         for penguin in penguin_follower:
-            penguin_change_x = new_change_x + random.randint(-5, 5) + penguin.center_x
-            penguin_change_y = new_change_y + random.randint(-4, 4) + penguin.center_y
+            if move_boss:
+                penguin_change_x = new_change_x + army_right * current_col * space_col + player_sprite.center_x
+                penguin_change_y = new_change_y + player_sprite.center_y + current_row * space_col + space_col
+                current_col += 1 
+                if current_col > penguin_army_col:
+                    army_right = 0 - army_right
+                    current_col = 1
+                    if army_right == 1:
+                        current_row += 1
+
+
+            else:
+
+                penguin_change_x = new_change_x + random.randint(-5, 5) + penguin.center_x
+                penguin_change_y = new_change_y + random.randint(-4, 4) + penguin.center_y
             #the following two lines of code will slow penguin movement
             # move = random.randint(0, 1)
             # if move == 0:
@@ -120,11 +138,14 @@ class ControlActorsAction(Action):
                     follower_shot = arcade.Sprite("penguin/game/assets/graphics/penguinSnowball.png", .10)
                     follower_shot.angle = random.randint(-15, 15)
                     follower_shot.change_y = constants.BULLET_SPEED
-                    follower_shot.center_x = penguin_follower[self.follower_turn].center_x
-                    follower_shot.bottom = penguin_follower[self.follower_turn].top
+                    try:
+                        follower_shot.center_x = penguin_follower[self.follower_turn].center_x
+                        follower_shot.bottom = penguin_follower[self.follower_turn].top
+                    except:
+                       x = 1
                     follower_bullet_list.append(follower_shot)
                     self.follower_turn += 1 
-                    if self.follower_turn == len(penguin_follower):
+                    if self.follower_turn >= len(penguin_follower):
                         self.follower_turn = 0
             else:
                 pass
