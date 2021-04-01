@@ -36,8 +36,12 @@ class Sounds:
 
     def stop_sound(self, sound):
         self.current_sound = None
-        arcade.Sound(self.sounds[sound]).stop(self.player)
+        try:
+            arcade.Sound(self.sounds[sound]).stop(self.player)
 
+        except:
+            self.current_sound = None
+            
     def get_current_sound(self):
         return self.current_sound
         

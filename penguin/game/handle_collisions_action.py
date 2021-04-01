@@ -19,6 +19,15 @@ class HandleCollisionsAction(Action):
         self.soundtracks = soundtracks
         self.game_over = game_over_view
         self.victory = victory_view
+
+     
+    def check_for_collision_with_lists(self, list_1, list_2):
+        hit_list = []
+        for item in list_1:
+            hit_list = arcade.check_for_collision_with_list(item, list_2)
+            if len(hit_list) > 0:
+                item.remove_from_sprite_lists()
+                return   
         
 
     def execute(self, cast):
@@ -292,6 +301,9 @@ class HandleCollisionsAction(Action):
                 else:
                     #Not dead
                     self.sounds.play_sound("player-hit")
+            
+            self.check_for_collision_with_lists(follower_list, enemy_bullet_list)
+
 
             for bullet in enemy_bullet_list:
                 if bullet.bottom < 0:
