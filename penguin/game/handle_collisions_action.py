@@ -294,7 +294,7 @@ class HandleCollisionsAction(Action):
                             self.soundtracks.stop_sound(self.soundtracks.get_current_sound())
                         self.sounds.play_sound("boss-death")
                         boss_sprite.remove_from_sprite_lists()
-                        time.sleep(.8)
+                        time.sleep(1.6)
                         view = self.victory
                         view.setup()
                         self.director.window.show_view(view)
@@ -350,7 +350,7 @@ class HandleCollisionsAction(Action):
                             self.soundtracks.stop_sound(self.soundtracks.get_current_sound())
                         self.sounds.play_sound("boss-death")
                         boss_sprite.remove_from_sprite_lists()
-                        time.sleep(.8)
+                        time.sleep(1.6)
                         move_boss = False 
                         view = self.victory
                         view.setup()
