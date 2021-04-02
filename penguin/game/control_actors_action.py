@@ -32,6 +32,7 @@ class ControlActorsAction(Action):
         self.max_distance_apart_y = 100
         self.follower_offset = 21
         self.follower_turn = 0
+        self.hard_mode_on = True
 
     def execute(self, cast):
         """Executes the action using the given actors.
@@ -59,6 +60,10 @@ class ControlActorsAction(Action):
         player_sprite.update(new_change_x, new_change_y)
         
         if move_boss:
+            if boss_sprite.cur_health <= 75:
+                if self.hard_mode_on:
+                    self.boss_move_x = constants.FINAL_MOVEMENT_SPEED
+                    self.hard_mode_on = False
             enemy_bullet_list = cast[2]
             if boss_sprite.center_x >= constants.SCREEN_WIDTH:
                 self.boss_move_x = 0 - self.boss_move_x 
@@ -166,7 +171,10 @@ class ControlActorsAction(Action):
 
             bullet = arcade.Sprite("penguin/game/assets/graphics/bossSnowball.png", .15)
             bullet.angle = -90
-            bullet.change_y = 0 - constants.BULLET_SPEED
+            if boss_sprite.cur_health <= 75:
+                bullet.change_y = 0 - constants.FINAL_BULLET_SPEED
+            else:
+                bullet.change_y = 0 - constants.BULLET_SPEED
             bullet.top = boss_sprite.center_y
             bullet.center_x = boss_sprite.center_x
             enemy_bullet_list.append(bullet)

@@ -27,7 +27,9 @@ class HandleCollisionsAction(Action):
             hit_list = arcade.check_for_collision_with_list(item, list_2)
             if len(hit_list) > 0:
                 item.remove_from_sprite_lists()
-                return   
+            for bullet in hit_list:
+                bullet.remove_from_sprite_lists()
+            return   
         
 
     def execute(self, cast):
@@ -305,10 +307,11 @@ class HandleCollisionsAction(Action):
         #This code is for the boss's bullets to hit the player
         enemy_bullet_list.update()
         if move_boss:
+
+            self.check_for_collision_with_lists(follower_list, enemy_bullet_list)
             hit_list_2 = arcade.check_for_collision_with_list(player_sprite, enemy_bullet_list)
             for bullet in hit_list_2:
                 bullet.remove_from_sprite_lists()
-
                 #remove 1 point of health per hit
                 player_sprite.cur_health -= 1
 
@@ -325,9 +328,6 @@ class HandleCollisionsAction(Action):
                     #Not dead
                     self.sounds.play_sound("player-hit")
             
-            self.check_for_collision_with_lists(follower_list, enemy_bullet_list)
-
-
             for bullet in enemy_bullet_list:
                 if bullet.bottom < 0:
                     bullet.remove_from_sprite_lists()
@@ -358,6 +358,10 @@ class HandleCollisionsAction(Action):
                     else:
                         #Not dead
                         self.sounds.play_sound("boss-hit")
+                    if boss_sprite.cur_health == 75:
+                        self.sounds.play_sound("boss-death")
+                    else:
+                        pass
             for bullet in follower_bullet_list:
                 if bullet.bottom > constants.SCREEN_HEIGHT:
                     bullet.remove_from_sprite_lists()
