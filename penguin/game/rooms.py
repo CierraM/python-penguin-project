@@ -6,7 +6,7 @@ class Rooms:
     """A class for keeping track of our many rooms in the game. Remembers which room the player is in.
     """
     def __init__(self):
-        self.current_room = 0
+        self.current_room = 8
     
     def setup_room_1(self):
         room = Room()
