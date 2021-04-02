@@ -201,7 +201,7 @@ class DirectorView(arcade.View):
         self.player_list.append(self.player_sprite)
 
         #this is the Boss sprite
-        self.boss_sprite = SpriteWithHealth("penguin/game/assets/graphics/boss.png", .24, -90, -110, -22, 14, 80, 7, max_health = 1) # this function give the sprite a health bar
+        self.boss_sprite = SpriteWithHealth("penguin/game/assets/graphics/boss.png", .24, -90, -110, -22, 14, 80, 7, max_health = 250) # this function give the sprite a health bar
         self.boss_sprite.center_x = (constants.SCREEN_WIDTH / 2)
         self.boss_sprite.center_y = (constants.SCREEN_HEIGHT - 210)
         
