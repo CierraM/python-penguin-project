@@ -28,8 +28,8 @@ class ControlActorsAction(Action):
         self.boss_wall_hits = 0
         # self.fire_speed = 10
         self.bullet_buffer = 9
-        self.max_distance_apart_x = 100
-        self.max_distance_apart_y = 100
+        self.max_distance_apart_x = 200
+        self.max_distance_apart_y = 200
         self.follower_offset = 21
         self.follower_turn = 0
         self.hard_mode_on = True
@@ -101,8 +101,7 @@ class ControlActorsAction(Action):
                 penguin_change_x = new_change_x + random.randint(-5, 5) + penguin.center_x
                 penguin_change_y = new_change_y + random.randint(-4, 4) + penguin.center_y
             #the following two lines of code will slow penguin movement
-            # move = random.randint(0, 1)
-            # if move == 0:
+
 
             if penguin_change_x > 0 + 32 and penguin_change_x < room_x - 32: 
                 penguin.center_x = penguin_change_x
@@ -114,9 +113,9 @@ class ControlActorsAction(Action):
                     penguin.center_x = player_sprite.center_x - self.follower_offset 
             # Keep penguins from crowding player's face
             if (penguin.right < player_sprite.right and penguin.right > player_sprite.center_x):
-                penguin.right += 16
+                penguin.right -= 32
             if (penguin.right > player_sprite.left and penguin.right < player_sprite.center_x):
-                penguin.right -= 16
+                penguin.right += 32
             
             if penguin_change_y > 0 + 32 and penguin_change_y < room_y - 32: 
                 penguin.center_y = penguin_change_y
@@ -156,16 +155,6 @@ class ControlActorsAction(Action):
                 pass
         else:
             self.bullet_buffer = 9
-
-        #     bullet.center_x = player_sprite.center_x
-        #     bullet.bottom = player_sprite.top
-
-        #     bullet_list.append(bullet)
-        #     self.fire_speed = 10
-        # else:
-        #     self.fire_speed = self.fire_speed - 1
-        #     if self.fire_speed < 0:
-        #         self.fire_speed = 10
 
         if move_boss and random.randint(0, 100) > 90:
 

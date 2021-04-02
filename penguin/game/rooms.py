@@ -124,7 +124,7 @@ class Rooms:
 
         return room
 
-    def setup_room_4(self): 
+    def setup_room_4(self):  #Maze
         room = Room()
         room.width = 2368
         room.height = 1344
@@ -135,27 +135,19 @@ class Rooms:
         background_layer_name = "background"
         #A function for special setup if needed
         room.specialBehavior = None
-        room.follower_num = (random.randint(5, 15))
+        
         room.follower_list = arcade.SpriteList()
         my_map = arcade.tilemap.read_tmx(map_name)
 
         room.wall_list = arcade.tilemap.process_layer(map_object=my_map, layer_name=objects_layer_name, scaling=constants.TILE_SCALING*1.5, use_spatial_hash=True)
 
         room.background = arcade.tilemap.process_layer(map_object=my_map, layer_name=background_layer_name, scaling=constants.TILE_SCALING*1.5, use_spatial_hash=True)
-
-        for x in range(room.follower_num):
-            find_place = True
-            while find_place:
-                follower = arcade.Sprite("penguin/game/assets/graphics/followerPenguin.png", .15)
-                follower.center_x = (random.randint(64, room.width - 64)) 
-                follower.center_y = (random.randint(64, room.height - 64))
-                for wall in room.wall_list:
-                    if wall.center_x == follower.center_x and wall.center_y == follower.center_y:
-                        find_place = True
-                        continue
-                else:
-                    find_place = False
-                    room.follower_list.append(follower)
+        penguin_locations = [(3458, 1904), (3328, 1384), (2738, 784), (2668, 1584), (3314, 1692), (2788, 1256), (2648, 1156), (2536, 1872), (1834, 1584), (616, 1864), (536, 1600), (278, 1562),(1301, 1288), (2960, 624), (2846, 128), (2306, 192), (1726, 1012), (775, 1104), (389, 308), (529, 302), (1059, 298), (1875, 342), (1775, 108)]
+        for spot in penguin_locations:
+            follower = arcade.Sprite("penguin/game/assets/graphics/followerPenguin.png", .15)
+            follower.center_x = (spot[0]) 
+            follower.center_y = (spot[1]) 
+            room.follower_list.append(follower)
 
 
         return room
