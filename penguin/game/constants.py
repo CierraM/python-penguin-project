@@ -15,6 +15,9 @@ SPRITE_SCALING = 0.5
 SPRITE_NATIVE_SIZE = 128
 SPRITE_SIZE = int(SPRITE_NATIVE_SIZE * SPRITE_SCALING)
 BULLET_SPEED = 8
+#Desperation Settings
+FINAL_BULLET_SPEED = 14
+FINAL_MOVEMENT_SPEED = 12
 
 #Constants for working with player penguin health bar/text
 HEALTHBAR_WIDTH = 40
