@@ -28,8 +28,8 @@ class ControlActorsAction(Action):
         self.boss_wall_hits = 0
         # self.fire_speed = 10
         self.bullet_buffer = 9
-        self.max_distance_apart_x = 200
-        self.max_distance_apart_y = 200
+        self.max_distance_apart_x = 150
+        self.max_distance_apart_y = 150
         self.follower_offset = 21
         self.follower_turn = 0
         self.hard_mode_on = True
